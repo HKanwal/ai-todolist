@@ -7,13 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-todolist';
-  modalShown = false;
+  todos = ['Create a new TODO!'];
 
-  showModal() {
-    this.modalShown = true;
-  }
-
-  hideModal() {
-    this.modalShown = false;
+  handleCreateClick() {
+    this.todos.push('New TODO');
   }
 }

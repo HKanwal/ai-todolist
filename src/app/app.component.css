@@ -1,0 +1,32 @@
+.app-container {
+  width: 100%;
+  max-width: 400px;
+  height: 90%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list-container {
+  flex-grow: 1;
+  position: relative;
+}
+
+.todo-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 100%;
+  margin-bottom: 10px;
+}
+
+.create-btn {
+}

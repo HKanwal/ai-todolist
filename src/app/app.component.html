@@ -1,5 +1,13 @@
-<app-modal [shown]="modalShown" (onClose)="hideModal()" />
+<div class="app-container">
+  <div class="todo-list-container">
+    <div class="todo-list">
+      <app-todo-item *ngFor="let todo of todos" [text]="todo" />
+    </div>
+  </div>
 
-<button (click)="showModal()">Show Modal</button>
+  <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
+    Create
+  </button>
+</div>
 
 <router-outlet></router-outlet>

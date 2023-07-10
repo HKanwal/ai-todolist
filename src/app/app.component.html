@@ -1,7 +1,9 @@
 <div class="app-container">
   <div class="todo-list-container">
-    <div class="todo-list">
-      <app-todo-item *ngFor="let todo of todos" [text]="todo" />
+    <div class="todo-list-scroller">
+      <div class="todo-list">
+        <app-todo-item *ngFor="let todo of todos" [text]="todo" />
+      </div>
     </div>
   </div>
 

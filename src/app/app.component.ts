@@ -19,6 +19,9 @@ export class AppComponent {
   }
 
   handleTodoBeginEditing(i: number) {
+    this.todos.forEach((todo) => {
+      todo.editing = false;
+    });
     this.todos[i].editing = true;
   }
 

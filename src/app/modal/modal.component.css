@@ -1,0 +1,51 @@
+.backdrop {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  --v-spacing: 10px;
+  --h-spacing: 10px;
+
+  border-radius: 8px;
+  border: 1px solid rgb(var(--light));
+  padding: var(--v-spacing) var(--h-spacing);
+  background-color: rgb(var(--dark));
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  margin-bottom: var(--v-spacing);
+}
+
+.x-btn {
+  border: none;
+  padding: 0;
+  background-color: rgb(var(--dark));
+  color: rgb(var(--white));
+  font-size: large;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.x-btn:hover {
+  cursor: pointer;
+  color: rgba(var(--white), 0.5);
+}
+
+.content {
+  padding: var(--v-spacing) var(--h-spacing);
+}

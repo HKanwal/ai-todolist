@@ -2,7 +2,13 @@
   <div class="todo-list-container">
     <div class="todo-list-scroller">
       <div class="todo-list">
-        <app-todo-item *ngFor="let todo of todos" [text]="todo" />
+        <app-todo-item
+          *ngFor="let todo of todos; index as i"
+          [text]="todo.text"
+          [editing]="todo.editing"
+          (onBeginEditing)="handleTodoBeginEditing(i)"
+          (onTextChange)="handleTodoTextChange(i, $event)"
+        />
       </div>
     </div>
   </div>

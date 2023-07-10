@@ -1,6 +1,20 @@
 <div class="container">
   <mat-checkbox type="checkbox" />
-  <span>
-    {{ text }}
-  </span>
+  <div class="text-and-edit">
+    <span *ngIf="!editing">
+      {{ text }}
+    </span>
+    <app-edit-field
+      *ngIf="editing"
+      [value]="value ?? 'ERR'"
+      (onInput)="handleInput($event)"
+      (onSubmit)="handleSubmit()"
+    />
+    <button class="btn" (click)="handleEditClick()" *ngIf="!editing">
+      <mat-icon class="edit-icon" fontIcon="edit" />
+    </button>
+    <button class="btn" (click)="handleSubmit()" *ngIf="editing">
+      <mat-icon class="done-icon" fontIcon="done" />
+    </button>
+  </div>
 </div>

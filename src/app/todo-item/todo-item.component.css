@@ -21,6 +21,7 @@
   border: none;
   padding: 0;
   color: rgb(var(--white));
+  margin-right: 10px;
 }
 
 .btn:hover {

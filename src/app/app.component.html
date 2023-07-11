@@ -1,14 +1,42 @@
 <div class="app-container">
+  <div class="header">
+    <h1
+      class="title-todo"
+      [ngClass]="showDone ? 'title-todo-hidden' : showDone !== null ? 'title-todo-shown' : ''"
+    >
+      TO-DO
+    </h1>
+    <h1
+      class="title-done"
+      [ngClass]="showDone === null ? 'hidden' : showDone ? 'title-done-shown' : 'title-done-hidden'"
+    >
+      DONE
+    </h1>
+    <mat-slide-toggle (change)="handleToggleChange($event)" />
+  </div>
+
   <div class="todo-list-container">
     <div class="todo-list-scroller">
-      <div class="todo-list">
+      <div
+        class="todos"
+        [ngClass]="showDone ? 'todos-todo-hidden' : showDone !== null ? 'todos-todo-shown' : ''"
+      >
         <app-todo-item
           *ngFor="let todo of todos; index as i"
           [text]="todo.text"
           [editing]="todo.editing"
           (onBeginEditing)="handleTodoBeginEditing(i)"
           (onTextChange)="handleTodoTextChange(i, $event)"
+          (onChecked)="handleCheckboxCheck(i)"
         />
+      </div>
+      <div
+        class="todos"
+        [ngClass]="
+          showDone === null ? 'hidden' : showDone ? 'todos-done-shown' : 'todos-done-hidden'
+        "
+      >
+        <app-todo-item *ngFor="let todo of done; index as i" [text]="todo" [editing]="false" />
       </div>
     </div>
   </div>

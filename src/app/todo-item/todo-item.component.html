@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-checkbox type="checkbox" />
+  <mat-checkbox type="checkbox" (change)="handleCheckboxChange($event)" />
   <div class="text-and-edit">
     <span *ngIf="!editing">
       {{ text }}

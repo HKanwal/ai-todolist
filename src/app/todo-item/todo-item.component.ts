@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-item',
@@ -9,6 +9,7 @@ export class TodoItemComponent {
   @Input() text = 'Write your TODO here!';
   @Output() onBeginEditing = new EventEmitter();
   @Output() onTextChange = new EventEmitter<string>();
+  @Output() onChecked = new EventEmitter();
   value: null | string = null;
 
   @Input()
@@ -35,5 +36,9 @@ export class TodoItemComponent {
 
     const trimmed = this.value.trim();
     this.onTextChange.emit(trimmed.length > 0 ? trimmed.trim() : this.text);
+  }
+
+  handleCheckboxChange(change: { checked: boolean }) {
+    this.onChecked.emit();
   }
 }

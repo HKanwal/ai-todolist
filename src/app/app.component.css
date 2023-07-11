@@ -1,7 +1,8 @@
 .app-container {
-  width: 100%;
+  width: 95%;
   max-width: 400px;
-  height: 90%;
+  height: 95%;
+  max-height: 800px;
 
   position: absolute;
   top: 50%;
@@ -12,9 +13,49 @@
   flex-direction: column;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.title-todo {
+  margin: 0;
+}
+
+.title-done {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.title-done-shown {
+  opacity: 0;
+  animation: show-title-from-left 0.5s ease forwards;
+}
+
+.title-todo-shown {
+  opacity: 0;
+  animation: show-title-from-right 0.5s ease forwards;
+}
+
+.title-done-hidden {
+  animation: hide-title-to-left 0.5s ease forwards;
+}
+
+.title-todo-hidden {
+  animation: hide-title-to-right 0.5s ease forwards;
+}
+
 .todo-list-container {
   flex-grow: 1;
   position: relative;
+  margin-bottom: 5%;
 }
 
 .todo-list-scroller {
@@ -26,14 +67,131 @@
   left: 0;
   right: 0;
   max-height: 100%;
-  margin-bottom: 5%;
 
   display: flex;
   flex-direction: column-reverse;
 }
 
-.todo-list {
+.todos {
+}
+
+.todos-todo-shown {
+  opacity: 0;
+  animation: show-todos-from-right 0.5s ease forwards;
+}
+
+.todos-todo-hidden {
+  animation: hide-todos-to-right 0.5s ease forwards;
+}
+
+.todos-done-shown {
+  opacity: 0;
+  animation: show-todos-from-left 0.5s ease forwards;
+}
+
+.todos-done-hidden {
+  animation: hide-todos-to-left 0.5s ease forwards;
 }
 
 .create-btn {
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes show-title-from-right {
+  0% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hide-title-to-left {
+  0% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes show-title-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hide-title-to-right {
+  0% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+}
+
+@keyframes show-todos-from-right {
+  0% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hide-todos-to-right {
+  0% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+}
+
+@keyframes hide-todos-to-left {
+  0% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes show-todos-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateX(0);
+  }
 }

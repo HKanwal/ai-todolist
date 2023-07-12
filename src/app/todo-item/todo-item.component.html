@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [class.checked]="checked">
   <mat-checkbox type="checkbox" (change)="handleCheckboxChange($event)" />
   <div class="text-and-edit">
     <span *ngIf="!editing">
@@ -17,4 +17,6 @@
       <mat-icon class="done-icon" fontIcon="done" />
     </button>
   </div>
+
+  <div class="strikethrough" *ngIf="checked"></div>
 </div>

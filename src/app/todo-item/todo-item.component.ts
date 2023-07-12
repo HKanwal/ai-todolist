@@ -11,6 +11,7 @@ export class TodoItemComponent {
   @Output() onTextChange = new EventEmitter<string>();
   @Output() onChecked = new EventEmitter();
   value: null | string = null;
+  checked = false;
 
   @Input()
   set editing(newState: boolean) {
@@ -39,6 +40,10 @@ export class TodoItemComponent {
   }
 
   handleCheckboxChange(change: { checked: boolean }) {
-    this.onChecked.emit();
+    if (change.checked) {
+      this.onChecked.emit();
+    }
+
+    this.checked = change.checked;
   }
 }

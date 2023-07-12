@@ -41,6 +41,8 @@ export class AppComponent {
 
   handleCheckboxCheck(i: number) {
     this.done.push(this.todos[i].text);
-    this.todos.splice(i, 1);
+    setTimeout(() => {
+      this.todos.splice(i, 1);
+    }, 500);
   }
 }

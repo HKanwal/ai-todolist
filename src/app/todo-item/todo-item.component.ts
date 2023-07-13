@@ -7,41 +7,31 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TodoItemComponent {
   @Input() text = 'Write your TODO here!';
-  @Output() onBeginEditing = new EventEmitter();
-  @Output() onTextChange = new EventEmitter<string>();
-  @Output() onChecked = new EventEmitter();
-  value: null | string = null;
+  @Input() _done = false;
+  @Output() editClick = new EventEmitter();
+  @Output() check = new EventEmitter();
   checked = false;
 
   @Input()
-  set editing(newState: boolean) {
-    this.value = newState ? this.text : null;
+  set done(newVal: boolean) {
+    this._done = newVal;
+
+    if (newVal) {
+      this.checked = true;
+    }
   }
 
-  get editing() {
-    return this.value !== null;
+  get done() {
+    return this._done;
   }
 
   handleEditClick() {
-    this.onBeginEditing.emit();
-  }
-
-  handleInput(newText: string) {
-    this.value = newText;
-  }
-
-  handleSubmit() {
-    if (this.value === null) {
-      return;
-    }
-
-    const trimmed = this.value.trim();
-    this.onTextChange.emit(trimmed.length > 0 ? trimmed.trim() : this.text);
+    this.editClick.emit();
   }
 
   handleCheckboxChange(change: { checked: boolean }) {
     if (change.checked) {
-      this.onChecked.emit();
+      this.check.emit();
     }
 
     this.checked = change.checked;

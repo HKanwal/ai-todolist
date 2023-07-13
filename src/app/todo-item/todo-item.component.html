@@ -1,22 +1,13 @@
 <div class="container" [class.checked]="checked">
   <mat-checkbox type="checkbox" (change)="handleCheckboxChange($event)" />
   <div class="text-and-edit">
-    <span *ngIf="!editing">
+    <span>
       {{ text }}
     </span>
-    <app-edit-field
-      *ngIf="editing"
-      [value]="value ?? 'ERR'"
-      (onInput)="handleInput($event)"
-      (onSubmit)="handleSubmit()"
-    />
-    <button class="btn" (click)="handleEditClick()" *ngIf="!editing">
+    <button class="btn" (click)="handleEditClick()">
       <mat-icon class="edit-icon" fontIcon="edit" />
-    </button>
-    <button class="btn" (click)="handleSubmit()" *ngIf="editing">
-      <mat-icon class="done-icon" fontIcon="done" />
     </button>
   </div>
 
-  <div class="strikethrough" *ngIf="checked"></div>
+  <div class="strikethrough" *ngIf="!done && checked"></div>
 </div>

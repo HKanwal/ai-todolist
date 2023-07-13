@@ -24,8 +24,8 @@
         <app-todo-item
           *ngFor="let todo of todos; index as i"
           [text]="todo"
-          (onChecked)="handleCheckboxCheck(i)"
-          (onBeginEditing)="handleBeginEditing(i)"
+          (check)="handleCheckboxCheck(i)"
+          (editClick)="handleBeginEditing(i)"
         />
       </div>
     </div>
@@ -34,7 +34,7 @@
       [ngClass]="showDone === null ? 'hidden' : showDone ? 'todos-done-shown' : 'todos-done-hidden'"
     >
       <div class="todos">
-        <app-todo-item *ngFor="let todo of done; index as i" [text]="todo" [editing]="false" />
+        <app-todo-item *ngFor="let todo of done; index as i" [text]="todo" />
       </div>
     </div>
   </div>

@@ -51,6 +51,7 @@
           matInput
           (input)="handleModalInput($event)"
           [value]="modalText"
+          (keydown.enter)="handleSaveClick()"
           [cdkTrapFocusAutoCapture]="modalShown"
           [cdkTrapFocus]="modalShown"
         />

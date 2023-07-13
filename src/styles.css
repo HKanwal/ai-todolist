@@ -16,7 +16,13 @@ html {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: rgb(var(--white));
 
-  background-color: rgb(var(--medium));
+  background: rgb(var(--dark));
+}
+
+@media only screen and (max-width: 800px) {
+  html {
+    background: rgb(var(--medium));
+  }
 }
 
 body {

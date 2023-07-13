@@ -16,11 +16,11 @@
   </div>
 
   <div class="todo-list-container">
-    <div class="todo-list-scroller">
-      <div
-        class="todos"
-        [ngClass]="showDone ? 'todos-todo-hidden' : showDone !== null ? 'todos-todo-shown' : ''"
-      >
+    <div
+      class="todo-list-scroller"
+      [ngClass]="showDone ? 'todos-todo-hidden' : showDone !== null ? 'todos-todo-shown' : ''"
+    >
+      <div class="todos">
         <app-todo-item
           *ngFor="let todo of todos; index as i"
           [text]="todo"
@@ -28,12 +28,12 @@
           (onBeginEditing)="handleBeginEditing(i)"
         />
       </div>
-      <div
-        class="todos"
-        [ngClass]="
-          showDone === null ? 'hidden' : showDone ? 'todos-done-shown' : 'todos-done-hidden'
-        "
-      >
+    </div>
+    <div
+      class="todo-list-scroller"
+      [ngClass]="showDone === null ? 'hidden' : showDone ? 'todos-done-shown' : 'todos-done-hidden'"
+    >
+      <div class="todos">
         <app-todo-item *ngFor="let todo of done; index as i" [text]="todo" [editing]="false" />
       </div>
     </div>

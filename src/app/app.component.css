@@ -82,19 +82,23 @@
 .todos-todo-shown {
   opacity: 0;
   animation: show-todos-from-right 0.5s ease forwards;
+  z-index: 1;
 }
 
 .todos-todo-hidden {
+  z-index: -1;
   animation: hide-todos-to-right 0.5s ease forwards;
 }
 
 .todos-done-shown {
   opacity: 0;
   animation: show-todos-from-left 0.5s ease forwards;
+  z-index: 1;
 }
 
 .todos-done-hidden {
   animation: hide-todos-to-left 0.5s ease forwards;
+  z-index: -1;
 }
 
 .create-btn {

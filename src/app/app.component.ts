@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
@@ -14,11 +15,12 @@ export class AppComponent {
   // Never goes back to `null` after being assigned as a boolean.
   showDone: null | boolean = null;
   modalShown = false;
-  modalText = '';
+  modalText = new FormControl('', [Validators.required]);
   editing: null | number = null;
 
   handleCreateClick() {
-    this.modalText = '';
+    this.modalText.setValue('');
+    this.modalText.markAsUntouched();
     this.modalShown = true;
   }
 
@@ -39,23 +41,27 @@ export class AppComponent {
 
   handleModalInput(e: Event) {
     const target = e.target as HTMLInputElement;
-    this.modalText = target.value;
+    this.modalText.setValue(target.value);
   }
 
   handleSaveClick() {
+    if (this.modalText.invalid) {
+      return;
+    }
+
     if (this.editing !== null) {
-      this.todos[this.editing] = this.modalText;
+      this.todos[this.editing] = this.modalText.value ?? '';
     } else {
-      this.todos.push(this.modalText);
+      this.todos.push(this.modalText.value ?? '');
     }
 
     this.modalShown = false;
-    this.modalText = '';
+    this.modalText.setValue('');
   }
 
   handleBeginEditing(i: number) {
     this.editing = i;
-    this.modalText = this.todos[i];
+    this.modalText.setValue(this.todos[i]);
     this.modalShown = true;
   }
 }

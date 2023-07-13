@@ -46,18 +46,28 @@
   <app-modal [shown]="modalShown" (onClose)="handleModalClose()" [hideX]="true">
     <div class="modal-content">
       <mat-form-field>
+        <mat-label>Enter TODO</mat-label>
         <input
-          placeholder="Your todo..."
+          placeholder="Your TODO..."
+          [formControl]="modalText"
           matInput
           (input)="handleModalInput($event)"
-          [value]="modalText"
+          [value]="modalText.value"
           (keydown.enter)="handleSaveClick()"
           [cdkTrapFocusAutoCapture]="modalShown"
           [cdkTrapFocus]="modalShown"
+          required
         />
       </mat-form-field>
 
-      <button mat-flat-button color="accent" (click)="handleSaveClick()">Save</button>
+      <button
+        mat-flat-button
+        color="accent"
+        (click)="handleSaveClick()"
+        [disabled]="modalText.invalid"
+      >
+        Save
+      </button>
     </div>
   </app-modal>
 </div>

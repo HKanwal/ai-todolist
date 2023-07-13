@@ -23,7 +23,8 @@
       <div class="todos">
         <app-todo-item
           *ngFor="let todo of todos; index as i"
-          [text]="todo"
+          [class.hidden]="todo.done"
+          [text]="todo.text"
           (check)="handleCheckboxCheck(i)"
           (editClick)="handleBeginEditing(i)"
         />

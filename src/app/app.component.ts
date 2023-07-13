@@ -9,7 +9,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 })
 export class AppComponent {
   title = 'angular-todolist';
-  todos = ['Create a new TODO!'];
+  todos = [{ text: 'Create a new TODO!', done: false }];
   done: string[] = [];
   // Starts `null` to ensure fade-in animation doesn't play on first load.
   // Never goes back to `null` after being assigned as a boolean.
@@ -17,6 +17,11 @@ export class AppComponent {
   modalShown = false;
   modalText = new FormControl('', [Validators.required]);
   editing: null | number = null;
+
+  completeTodo(i: number) {
+    this.todos[i].done = true;
+    this.done.push(this.todos[i].text);
+  }
 
   handleCreateClick() {
     this.modalText.setValue('');
@@ -33,9 +38,8 @@ export class AppComponent {
   }
 
   handleCheckboxCheck(i: number) {
-    this.done.push(this.todos[i]);
     setTimeout(() => {
-      this.todos.splice(i, 1);
+      this.completeTodo(i);
     }, 500);
   }
 
@@ -50,9 +54,9 @@ export class AppComponent {
     }
 
     if (this.editing !== null) {
-      this.todos[this.editing] = this.modalText.value ?? '';
+      this.todos[this.editing].text = this.modalText.value ?? '';
     } else {
-      this.todos.push(this.modalText.value ?? '');
+      this.todos.push({ text: this.modalText.value ?? '', done: false });
     }
 
     this.modalShown = false;
@@ -61,7 +65,7 @@ export class AppComponent {
 
   handleBeginEditing(i: number) {
     this.editing = i;
-    this.modalText.setValue(this.todos[i]);
+    this.modalText.setValue(this.todos[i].text);
     this.modalShown = true;
   }
 }

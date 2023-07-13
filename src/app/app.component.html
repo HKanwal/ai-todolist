@@ -34,7 +34,7 @@
       [ngClass]="showDone === null ? 'hidden' : showDone ? 'todos-done-shown' : 'todos-done-hidden'"
     >
       <div class="todos">
-        <app-todo-item *ngFor="let todo of done; index as i" [text]="todo" />
+        <app-todo-item *ngFor="let todo of done; index as i" [text]="todo" [done]="true" />
       </div>
     </div>
   </div>

@@ -23,11 +23,9 @@
       >
         <app-todo-item
           *ngFor="let todo of todos; index as i"
-          [text]="todo.text"
-          [editing]="todo.editing"
-          (onBeginEditing)="handleTodoBeginEditing(i)"
-          (onTextChange)="handleTodoTextChange(i, $event)"
+          [text]="todo"
           (onChecked)="handleCheckboxCheck(i)"
+          (onBeginEditing)="handleBeginEditing(i)"
         />
       </div>
       <div
@@ -44,6 +42,23 @@
   <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
     Create
   </button>
+
+  <app-modal [shown]="modalShown" (onClose)="handleModalClose()" [hideX]="true">
+    <div class="modal-content">
+      <mat-form-field>
+        <input
+          placeholder="Your todo..."
+          matInput
+          (input)="handleModalInput($event)"
+          [value]="modalText"
+          [cdkTrapFocusAutoCapture]="modalShown"
+          [cdkTrapFocus]="modalShown"
+        />
+      </mat-form-field>
+
+      <button mat-flat-button color="accent" (click)="handleSaveClick()">Save</button>
+    </div>
+  </app-modal>
 </div>
 
 <router-outlet></router-outlet>

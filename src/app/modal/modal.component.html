@@ -1,10 +1,12 @@
 <div class="backdrop" *ngIf="shown" (click)="handleClick($event)">
   <div class="modal">
-    <div class="header">
+    <div class="header" *ngIf="!hideX">
       <button class="x-btn" (click)="handleCloseClick()">
         <mat-icon fontIcon="close"></mat-icon>
       </button>
     </div>
-    <div class="content">Deleted successfully.</div>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
   </div>
 </div>

@@ -8,31 +8,22 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 })
 export class AppComponent {
   title = 'angular-todolist';
-  todos = [{ text: 'Create a new TODO!', editing: false }];
+  todos = ['Create a new TODO!'];
   done: string[] = [];
   // Starts `null` to ensure fade-in animation doesn't play on first load.
   // Never goes back to `null` after being assigned as a boolean.
   showDone: null | boolean = null;
+  modalShown = false;
+  modalText = '';
+  editing: null | number = null;
 
   handleCreateClick() {
-    this.todos.forEach((todo) => {
-      if (todo.editing) {
-        todo.editing = false;
-      }
-    });
-    this.todos.push({ text: 'New TODO', editing: true });
+    this.modalText = '';
+    this.modalShown = true;
   }
 
-  handleTodoBeginEditing(i: number) {
-    this.todos.forEach((todo) => {
-      todo.editing = false;
-    });
-    this.todos[i].editing = true;
-  }
-
-  handleTodoTextChange(i: number, newText: string) {
-    this.todos[i].text = newText;
-    this.todos[i].editing = false;
+  handleModalClose() {
+    this.modalShown = false;
   }
 
   handleToggleChange(change: MatSlideToggleChange) {
@@ -40,9 +31,31 @@ export class AppComponent {
   }
 
   handleCheckboxCheck(i: number) {
-    this.done.push(this.todos[i].text);
+    this.done.push(this.todos[i]);
     setTimeout(() => {
       this.todos.splice(i, 1);
     }, 500);
+  }
+
+  handleModalInput(e: Event) {
+    const target = e.target as HTMLInputElement;
+    this.modalText = target.value;
+  }
+
+  handleSaveClick() {
+    if (this.editing !== null) {
+      this.todos[this.editing] = this.modalText;
+    } else {
+      this.todos.push(this.modalText);
+    }
+
+    this.modalShown = false;
+    this.modalText = '';
+  }
+
+  handleBeginEditing(i: number) {
+    this.editing = i;
+    this.modalText = this.todos[i];
+    this.modalShown = true;
   }
 }

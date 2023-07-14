@@ -18,9 +18,7 @@ export class AppComponent {
   title = 'angular-todolist';
   // 'done' prop controls visibility of todo-item
   todos: Todos = { [getToday()]: [{ text: 'Create a new TODO!', done: 'NotDone' }] };
-  // Starts `null` to ensure fade-in animation doesn't play on first load.
-  // Never goes back to `null` after being assigned as a boolean.
-  showDone: null | boolean = null;
+  screenTransition: 'Init' | 'ToDone' | 'ToTodo' = 'Init';
   modalShown = false;
   modalText = new FormControl('', [Validators.required]);
   editing: 'NotEditing' | { date: string; i: number } = 'NotEditing';
@@ -41,7 +39,7 @@ export class AppComponent {
   }
 
   handleToggleChange(change: MatSlideToggleChange) {
-    this.showDone = change.checked;
+    this.screenTransition = change.checked ? 'ToDone' : 'ToTodo';
   }
 
   handleModalInput(e: Event) {
@@ -59,7 +57,7 @@ export class AppComponent {
       this.editing = 'NotEditing';
     } else {
       if (!this.todos[getToday()]) this.todos[getToday()] = [];
-      this.todos[getToday()].push({ text: this.modalText.value ?? '', done: 'NotDone' });
+      this.todos[getToday()].push({ text: this.modalText.value ?? '', done: 'InInitAnimation' });
     }
 
     this.modalShown = false;

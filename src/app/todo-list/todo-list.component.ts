@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export type Todos = {
   [date in string]: {
     text: string;
-    done: 'NotDone' | 'InAnimation' | 'Done';
+    done: 'InInitAnimation' | 'NotDone' | 'InDoneAnimation' | 'Done';
   }[];
 };
 
@@ -29,7 +29,7 @@ export class TodoListComponent {
   }
 
   handleCheck(date: string, i: number) {
-    this.todos[date][i].done = 'InAnimation';
+    this.todos[date][i].done = 'InDoneAnimation';
     setTimeout(() => {
       this.todos[date][i].done = 'Done';
     }, 500);

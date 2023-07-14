@@ -2,13 +2,16 @@
   <div class="header">
     <h1
       class="title-todo"
-      [ngClass]="showDone ? 'title-todo-hidden' : showDone !== null ? 'title-todo-shown' : ''"
+      [class.title-todo-shown]="screenTransition !== 'ToDone'"
+      [class.title-todo-hidden]="screenTransition === 'ToDone'"
     >
       TO-DO
     </h1>
     <h1
       class="title-done"
-      [ngClass]="showDone === null ? 'hidden' : showDone ? 'title-done-shown' : 'title-done-hidden'"
+      [class.hidden]="screenTransition === 'Init'"
+      [class.title-done-shown]="screenTransition === 'ToDone'"
+      [class.title-done-hidden]="screenTransition === 'ToTodo'"
     >
       DONE
     </h1>
@@ -18,14 +21,18 @@
   <div class="todo-list-container">
     <app-todo-list
       [done]="false"
-      [shown]="!showDone"
+      [shown]="screenTransition !== 'ToDone'"
       [todos]="todos"
       (edit)="handleEdit($event.date, $event.i)"
     />
-    <app-todo-list [done]="true" [shown]="!!showDone" [todos]="todos" />
+    <app-todo-list [done]="true" [shown]="screenTransition === 'ToDone'" [todos]="todos" />
   </div>
 
-  <div class="btns-container" [class.hide-down]="showDone" [class.show-up]="showDone === false">
+  <div
+    class="btns-container"
+    [class.hide-down]="screenTransition === 'ToDone'"
+    [class.show-up]="screenTransition !== 'ToDone'"
+  >
     <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
       Create
     </button>

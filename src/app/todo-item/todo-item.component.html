@@ -1,4 +1,4 @@
-<div class="container" [class.checked]="!done && checked">
+<div class="container" [class.fade-in]="initAnimation" [class.checked]="!done && checked">
   <mat-checkbox
     type="checkbox"
     (change)="handleCheckboxChange($event)"

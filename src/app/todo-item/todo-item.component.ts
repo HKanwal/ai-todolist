@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class TodoItemComponent {
   @Input() text = 'Write your TODO here!';
   @Input() _done = false;
+  @Input() initAnimation = false;
   @Output() editClick = new EventEmitter();
   @Output() check = new EventEmitter();
   checked = false;

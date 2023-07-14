@@ -18,11 +18,6 @@ export class AppComponent {
   modalText = new FormControl('', [Validators.required]);
   editing: null | number = null;
 
-  completeTodo(i: number) {
-    this.todos[i].done = true;
-    this.done.push(this.todos[i].text);
-  }
-
   handleCreateClick() {
     this.modalText.setValue('');
     this.modalText.markAsUntouched();
@@ -38,8 +33,9 @@ export class AppComponent {
   }
 
   handleCheckboxCheck(i: number) {
+    this.done.push(this.todos[i].text);
     setTimeout(() => {
-      this.completeTodo(i);
+      this.todos[i].done = true;
     }, 500);
   }
 

@@ -44,7 +44,12 @@
     <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
       Create
     </button>
-    <button class="robo-btn" mat-flat-button color="accent">
+    <button
+      class="robo-btn"
+      mat-flat-button
+      color="accent"
+      [disabled]="todos.length === done.length"
+    >
       <mat-icon class="robo-icon" fontIcon="smart_toy" />
     </button>
   </div>

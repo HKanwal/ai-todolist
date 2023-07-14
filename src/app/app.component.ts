@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Todos } from './todo-list/todo-list.component';
 
 function getToday() {
   const today = new Date();
@@ -16,7 +17,7 @@ function getToday() {
 export class AppComponent {
   title = 'angular-todolist';
   // 'done' prop controls visibility of todo-item
-  todos = { [getToday()]: [{ text: 'Create a new TODO!', done: false }] };
+  todos: Todos = { [getToday()]: [{ text: 'Create a new TODO!', done: 'NotDone' }] };
   todoCount = 1; // total # of todos
   done: { [date in string]: string[] } = {}; // shown in "DONE" screen
   doneCount = 0;
@@ -39,18 +40,19 @@ export class AppComponent {
 
   handleModalClose() {
     this.modalShown = false;
+    this.editing = null;
   }
 
   handleToggleChange(change: MatSlideToggleChange) {
     this.showDone = change.checked;
   }
 
-  handleCheckboxCheck(date: string, i: number) {
+  handleCheck(date: string, i: number) {
     if (!this.done[date]) this.done[date] = [];
     this.done[date].push(this.todos[date][i].text);
     this.doneCount++;
     setTimeout(() => {
-      this.todos[date][i].done = true;
+      this.todos[date][i].done = 'Done';
     }, 500);
   }
 
@@ -66,9 +68,10 @@ export class AppComponent {
 
     if (this.editing !== null) {
       this.todos[this.editing.date][this.editing.i].text = this.modalText.value ?? '';
+      this.editing = null;
     } else {
       if (!this.todos[getToday()]) this.todos[getToday()] = [];
-      this.todos[getToday()].push({ text: this.modalText.value ?? '', done: false });
+      this.todos[getToday()].push({ text: this.modalText.value ?? '', done: 'NotDone' });
       this.todoCount++;
     }
 
@@ -76,7 +79,7 @@ export class AppComponent {
     this.modalText.setValue('');
   }
 
-  handleBeginEditing(date: string, i: number) {
+  handleEdit(date: string, i: number) {
     this.editing = { date, i };
     this.modalText.setValue(this.todos[date][i].text);
     this.modalShown = true;

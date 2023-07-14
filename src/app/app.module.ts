@@ -14,9 +14,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppComponent } from './app.component';
 import { ModalComponent } from './modal/modal.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
 
 @NgModule({
-  declarations: [AppComponent, ModalComponent, TodoItemComponent],
+  declarations: [AppComponent, ModalComponent, TodoItemComponent, TodoListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

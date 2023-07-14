@@ -16,38 +16,14 @@
   </div>
 
   <div class="todo-list-container">
-    <div
-      class="todo-list-scroller"
-      [ngClass]="showDone ? 'todos-todo-hidden' : showDone !== null ? 'todos-todo-shown' : ''"
-    >
-      <div class="todos">
-        <div class="dated-section" *ngFor="let todolist of todos | keyvalue">
-          <h3 class="date">{{ formatDate(todolist.key) }}</h3>
-          <app-todo-item
-            *ngFor="let todo of todolist.value; index as i"
-            [class.hidden]="todo.done"
-            [text]="todo.text"
-            (check)="handleCheckboxCheck(todolist.key, i)"
-            (editClick)="handleBeginEditing(todolist.key, i)"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      class="todo-list-scroller"
-      [ngClass]="showDone === null ? 'hidden' : showDone ? 'todos-done-shown' : 'todos-done-hidden'"
-    >
-      <div class="todos">
-        <div class="dated-section" *ngFor="let todolist of done | keyvalue">
-          <h3 class="date">{{ formatDate(todolist.key) }}</h3>
-          <app-todo-item
-            *ngFor="let todo of todolist.value; index as i"
-            [text]="todo"
-            [done]="true"
-          />
-        </div>
-      </div>
-    </div>
+    <app-todo-list
+      [done]="false"
+      [shown]="!showDone"
+      [todos]="todos"
+      (check)="handleCheck($event.date, $event.i)"
+      (edit)="handleEdit($event.date, $event.i)"
+    />
+    <app-todo-list [done]="true" [shown]="!!showDone" [todos]="todos" />
   </div>
 
   <div class="btns-container" [class.hide-down]="showDone" [class.show-up]="showDone === false">

@@ -18,7 +18,8 @@ export class AppComponent {
   // 'done' prop controls visibility of todo-item
   todos = { [getToday()]: [{ text: 'Create a new TODO!', done: false }] };
   todoCount = 1; // total # of todos
-  done: string[] = []; // shown in "DONE" screen
+  done: { [date in string]: string[] } = {}; // shown in "DONE" screen
+  doneCount = 0;
   // Starts `null` to ensure fade-in animation doesn't play on first load.
   // Never goes back to `null` after being assigned as a boolean.
   showDone: null | boolean = null;
@@ -45,7 +46,9 @@ export class AppComponent {
   }
 
   handleCheckboxCheck(date: string, i: number) {
-    this.done.push(this.todos[date][i].text);
+    if (!this.done[date]) this.done[date] = [];
+    this.done[date].push(this.todos[date][i].text);
+    this.doneCount++;
     setTimeout(() => {
       this.todos[date][i].done = true;
     }, 500);

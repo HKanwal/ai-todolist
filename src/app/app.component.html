@@ -38,7 +38,14 @@
       [ngClass]="showDone === null ? 'hidden' : showDone ? 'todos-done-shown' : 'todos-done-hidden'"
     >
       <div class="todos">
-        <app-todo-item *ngFor="let todo of done; index as i" [text]="todo" [done]="true" />
+        <div class="dated-section" *ngFor="let todolist of done | keyvalue">
+          <h3 class="date">{{ formatDate(todolist.key) }}</h3>
+          <app-todo-item
+            *ngFor="let todo of todolist.value; index as i"
+            [text]="todo"
+            [done]="true"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -47,7 +54,7 @@
     <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
       Create
     </button>
-    <button class="robo-btn" mat-flat-button color="accent" [disabled]="todoCount === done.length">
+    <button class="robo-btn" mat-flat-button color="accent" [disabled]="todoCount === doneCount">
       <mat-icon class="robo-icon" fontIcon="smart_toy" />
     </button>
   </div>

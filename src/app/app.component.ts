@@ -23,7 +23,7 @@ export class AppComponent {
   showDone: null | boolean = null;
   modalShown = false;
   modalText = new FormControl('', [Validators.required]);
-  editing: null | { date: string; i: number } = null;
+  editing: 'NotEditing' | { date: string; i: number } = 'NotEditing';
 
   formatDate(date: string) {
     return date.split(', ')[0];
@@ -37,7 +37,7 @@ export class AppComponent {
 
   handleModalClose() {
     this.modalShown = false;
-    this.editing = null;
+    this.editing = 'NotEditing';
   }
 
   handleToggleChange(change: MatSlideToggleChange) {
@@ -60,9 +60,9 @@ export class AppComponent {
       return;
     }
 
-    if (this.editing !== null) {
+    if (this.editing !== 'NotEditing') {
       this.todos[this.editing.date][this.editing.i].text = this.modalText.value ?? '';
-      this.editing = null;
+      this.editing = 'NotEditing';
     } else {
       if (!this.todos[getToday()]) this.todos[getToday()] = [];
       this.todos[getToday()].push({ text: this.modalText.value ?? '', done: 'NotDone' });

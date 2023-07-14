@@ -18,20 +18,35 @@ function generatePrompt(todos) {
 }
 
 app.get(["/:todos"], async (req, res) => {
-  const todos = JSON.parse(req.params["todos"]);
+  let todos = [];
+  try {
+    todos = JSON.parse(req.params["todos"]);
+  } catch (e) {
+    res.statusCode = 400;
+    res.send({ error: "Malformed todos." });
+    return;
+  }
 
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: generatePrompt(todos),
-    temperature: 0,
-    max_tokens: 100,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    stop: ["\n"],
-  });
+  let completion = null;
+  try {
+    completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: generatePrompt(todos),
+      temperature: 0,
+      max_tokens: 100,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      stop: ["\n"],
+    });
+  } catch (e) {
+    res.statusCode = 500;
+    res.send({ error: "Internal server error." });
+    return;
+  }
 
-  res.send(`<h1>${completion.data.choices[0].text}</h1>`);
+  res.statusCode = 200;
+  res.send({ completion: completion.data.choices[0].text });
 });
 
 app.listen(port, () => console.log(`angular-todolist-server app listening on port ${port}!`));

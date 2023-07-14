@@ -22,6 +22,12 @@ export class TodoListComponent {
     return date.split(', ')[0];
   }
 
+  dateShowsTodo(date: string) {
+    return !!this.todos[date].find(
+      (todo) => (!this.done && todo.done !== 'Done') || (this.done && todo.done === 'Done')
+    );
+  }
+
   handleCheck(date: string, i: number) {
     this.todos[date][i].done = 'InAnimation';
     setTimeout(() => {

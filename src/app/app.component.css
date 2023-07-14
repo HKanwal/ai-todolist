@@ -101,9 +101,6 @@
   z-index: -1;
 }
 
-.create-btn {
-}
-
 .hidden {
   display: none;
 }
@@ -209,4 +206,23 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.btns-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.create-btn {
+  flex-grow: 2;
+  margin-right: 10px;
+}
+
+.robo-btn {
+  flex-grow: 1;
+}
+
+.robo-icon {
+  margin: 0 !important;
 }

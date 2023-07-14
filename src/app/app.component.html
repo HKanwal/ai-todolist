@@ -40,9 +40,14 @@
     </div>
   </div>
 
-  <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
-    Create
-  </button>
+  <div class="btns-container">
+    <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
+      Create
+    </button>
+    <button class="robo-btn" mat-flat-button color="accent">
+      <mat-icon class="robo-icon" fontIcon="smart_toy" />
+    </button>
+  </div>
 
   <app-modal [shown]="modalShown" (onClose)="handleModalClose()" [hideX]="true">
     <div class="modal-content">

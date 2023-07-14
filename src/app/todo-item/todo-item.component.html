@@ -10,7 +10,7 @@
       {{ text }}
     </span>
     <button class="btn" [class.clickable]="!done" (click)="handleEditClick()" [disabled]="done">
-      <mat-icon class="edit-icon" fontIcon="edit" />
+      <mat-icon class="edit-icon" fontIcon="edit" *ngIf="!done" />
     </button>
   </div>
 

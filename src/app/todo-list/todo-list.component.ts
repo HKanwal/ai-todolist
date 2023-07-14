@@ -16,7 +16,6 @@ export class TodoListComponent {
   @Input() done = false;
   @Input() shown = true;
   @Input() todos: Todos = {};
-  @Output() check = new EventEmitter<{ date: string; i: number }>();
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
 
   formatDate(date: string) {
@@ -24,7 +23,10 @@ export class TodoListComponent {
   }
 
   handleCheck(date: string, i: number) {
-    this.check.emit({ date, i });
+    this.todos[date][i].done = 'InAnimation';
+    setTimeout(() => {
+      this.todos[date][i].done = 'Done';
+    }, 500);
   }
 
   handleEdit(date: string, i: number) {

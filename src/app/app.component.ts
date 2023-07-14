@@ -44,12 +44,6 @@ export class AppComponent {
     this.showDone = change.checked;
   }
 
-  handleCheck(date: string, i: number) {
-    setTimeout(() => {
-      this.todos[date][i].done = 'Done';
-    }, 500);
-  }
-
   handleModalInput(e: Event) {
     const target = e.target as HTMLInputElement;
     this.modalText.setValue(target.value);

@@ -20,7 +20,6 @@
       [done]="false"
       [shown]="!showDone"
       [todos]="todos"
-      (check)="handleCheck($event.date, $event.i)"
       (edit)="handleEdit($event.date, $event.i)"
     />
     <app-todo-list [done]="true" [shown]="!!showDone" [todos]="todos" />

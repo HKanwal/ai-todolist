@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="btns-container">
+  <div class="btns-container" [class.hide-down]="showDone" [class.show-up]="showDone === false">
     <button class="create-btn" mat-flat-button color="primary" (click)="handleCreateClick()">
       Create
     </button>

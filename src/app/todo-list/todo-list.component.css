@@ -99,6 +99,23 @@
   }
 }
 
+.shrinker {
+  width: 100%;
+  height: 48px;
+
+  animation: shrink 0.5s ease forwards;
+}
+
+@keyframes shrink {
+  0% {
+    height: 48px;
+  }
+
+  100% {
+    height: 0;
+  }
+}
+
 .hidden {
   display: none;
 }

@@ -7,14 +7,16 @@
 >
   <div class="dated-section" *ngFor="let todolist of todos | keyvalue">
     <h3 class="date" *ngIf="dateShowsTodo(todolist.key)">{{ formatDate(todolist.key) }}</h3>
-    <app-todo-item
-      *ngFor="let todo of todolist.value; index as i"
-      [class.hidden]="(!done && todo.done === 'Done') || (done && todo.done !== 'Done')"
-      [initAnimation]="todo.done === 'InInitAnimation'"
-      [text]="todo.text"
-      [done]="done"
-      (check)="handleCheck(todolist.key, i)"
-      (editClick)="handleEdit(todolist.key, i)"
-    />
+    <div *ngFor="let todo of todolist.value; index as i">
+      <app-todo-item
+        [class.hidden]="(!done && todo.done === 'Done') || (done && todo.done !== 'Done')"
+        [initAnimation]="todo.done === 'InInitAnimation'"
+        [text]="todo.text"
+        [done]="done"
+        (check)="handleCheck(todolist.key, i)"
+        (editClick)="handleEdit(todolist.key, i)"
+      />
+      <div class="shrinker" *ngIf="!done && todo.done === 'Done'"></div>
+    </div>
   </div>
 </div>

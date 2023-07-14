@@ -14,10 +14,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppComponent } from './app.component';
 import { ModalComponent } from './modal/modal.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
-import { EditFieldComponent } from './edit-field/edit-field.component';
 
 @NgModule({
-  declarations: [AppComponent, ModalComponent, TodoItemComponent, EditFieldComponent],
+  declarations: [AppComponent, ModalComponent, TodoItemComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

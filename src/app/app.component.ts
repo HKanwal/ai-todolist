@@ -18,9 +18,6 @@ export class AppComponent {
   title = 'angular-todolist';
   // 'done' prop controls visibility of todo-item
   todos: Todos = { [getToday()]: [{ text: 'Create a new TODO!', done: 'NotDone' }] };
-  todoCount = 1; // total # of todos
-  done: { [date in string]: string[] } = {}; // shown in "DONE" screen
-  doneCount = 0;
   // Starts `null` to ensure fade-in animation doesn't play on first load.
   // Never goes back to `null` after being assigned as a boolean.
   showDone: null | boolean = null;
@@ -48,9 +45,6 @@ export class AppComponent {
   }
 
   handleCheck(date: string, i: number) {
-    if (!this.done[date]) this.done[date] = [];
-    this.done[date].push(this.todos[date][i].text);
-    this.doneCount++;
     setTimeout(() => {
       this.todos[date][i].done = 'Done';
     }, 500);
@@ -72,7 +66,6 @@ export class AppComponent {
     } else {
       if (!this.todos[getToday()]) this.todos[getToday()] = [];
       this.todos[getToday()].push({ text: this.modalText.value ?? '', done: 'NotDone' });
-      this.todoCount++;
     }
 
     this.modalShown = false;

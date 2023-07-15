@@ -15,9 +15,16 @@ import { AppComponent } from './app.component';
 import { ModalComponent } from './modal/modal.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { ReversedKeyvaluePipe } from './reversed-keyvalue.pipe';
 
 @NgModule({
-  declarations: [AppComponent, ModalComponent, TodoItemComponent, TodoListComponent],
+  declarations: [
+    AppComponent,
+    ModalComponent,
+    TodoItemComponent,
+    TodoListComponent,
+    ReversedKeyvaluePipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

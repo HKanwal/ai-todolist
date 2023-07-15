@@ -3,6 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 import express from "express";
 
 const app = express();
+app.use(express.json());
 const port = process.env["PORT"] || 3001;
 
 const configuration = new Configuration({
@@ -17,16 +18,15 @@ function generatePrompt(todos) {
   return basePrompt + todos.join(", ") + "\nA: ";
 }
 
-app.get(["/:todos"], async (req, res) => {
-  let todos = [];
-  try {
-    todos = JSON.parse(req.params["todos"]);
-  } catch (e) {
+app.post(["/"], async (req, res) => {
+  const body = req.body;
+  if (!body.todos || typeof body.todos !== "object" || body.todos.length === 0) {
     res.statusCode = 400;
     res.send({ error: "Malformed todos." });
     return;
   }
 
+  const todos = body.todos;
   let completion = null;
   try {
     completion = await openai.createCompletion({

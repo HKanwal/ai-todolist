@@ -51,7 +51,7 @@ app.post(["/"], async (req, res) => {
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-      stop: ["\n"],
+      stop: ["\n", "."],
       stream: true,
     });
   } catch (e) {

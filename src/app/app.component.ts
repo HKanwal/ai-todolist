@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { HttpClient } from '@angular/common/http';
 import { Todos } from './todo-list/todo-list.component';
+import { apiUrl } from 'src/constants';
 
 function getToday() {
   const today = new Date();
@@ -16,12 +18,13 @@ function getToday() {
 })
 export class AppComponent {
   title = 'angular-todolist';
-  // 'done' prop controls visibility of todo-item
   todos: Todos = { [getToday()]: [{ text: 'Create a new TODO!', done: 'NotDone' }] };
   screenTransition: 'Init' | 'ToDone' | 'ToTodo' = 'Init';
   modalShown = false;
   modalText = new FormControl('', [Validators.required]);
   editing: 'NotEditing' | { date: string; i: number } = 'NotEditing';
+
+  constructor(private http: HttpClient) {}
 
   formatDate(date: string) {
     return date.split(', ')[0];
@@ -68,5 +71,30 @@ export class AppComponent {
     this.editing = { date, i };
     this.modalText.setValue(this.todos[date][i].text);
     this.modalShown = true;
+  }
+
+  handleRoboBtnClick() {
+    const threeLatestDates: string[] = [];
+    const threeLatest: Todos[string] = [];
+
+    for (let date in this.todos) {
+      threeLatestDates.push(date);
+      if (threeLatestDates.length > 3) threeLatestDates.shift();
+    }
+
+    for (let date of threeLatestDates.reverse()) {
+      for (let i = this.todos[date].length - 1; i >= 0; i--) {
+        threeLatest.push(this.todos[date][i]);
+        if (threeLatest.length === 3) break;
+      }
+      if (threeLatest.length === 3) break;
+    }
+
+    const reqBody = { todos: threeLatest.map((todo) => todo.text) };
+    this.http.post(apiUrl, reqBody).subscribe((res: any) => {
+      this.modalText.setValue(res.completion);
+      this.modalText.markAsUntouched();
+      this.modalShown = true;
+    });
   }
 }

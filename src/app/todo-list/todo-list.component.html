@@ -5,7 +5,7 @@
   [class.hide-left]="done && !shown"
   [class.show-left]="done && shown"
 >
-  <div class="dated-section" *ngFor="let todolist of todos | keyvalue">
+  <div class="dated-section" *ngFor="let todolist of todos | reversedKeyvalue">
     <h3 class="date" *ngIf="dateShowsTodo(todolist.key)">{{ formatDate(todolist.key) }}</h3>
     <div *ngFor="let todo of todolist.value; index as i">
       <app-todo-item

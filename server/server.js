@@ -1,7 +1,8 @@
 import { OPENAI_KEY } from "./secrets.js";
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration, OpenAIApi } from "openai-edge";
 import express from "express";
 import cors from "cors";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 
 const app = express();
 app.use(express.json());
@@ -51,6 +52,7 @@ app.post(["/"], async (req, res) => {
       frequency_penalty: 0,
       presence_penalty: 0,
       stop: ["\n"],
+      stream: true,
     });
   } catch (e) {
     res.statusCode = 500;
@@ -58,8 +60,24 @@ app.post(["/"], async (req, res) => {
     return;
   }
 
-  res.statusCode = 200;
-  res.send({ completion: completion.data.choices[0].text });
+  try {
+    completion.body.pipeTo(
+      new WritableStream({
+        start() {
+          completion.headers.forEach((v, n) => res.setHeader(n, v));
+        },
+        write(chunk) {
+          res.write(chunk);
+        },
+        close() {
+          res.end();
+        },
+      })
+    );
+  } catch (e) {
+    res.statusCode = 500;
+    res.send({ error: "Internal server error." });
+  }
 });
 
 app.listen(port, () => console.log(`angular-todolist-server app listening on port ${port}!`));

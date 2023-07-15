@@ -91,10 +91,46 @@ export class AppComponent {
     }
 
     const reqBody = { todos: threeLatest.map((todo) => todo.text) };
-    this.http.post(apiUrl, reqBody).subscribe((res: any) => {
-      this.modalText.setValue(res.completion);
-      this.modalText.markAsUntouched();
-      this.modalShown = true;
+    fetch(apiUrl, {
+      method: 'POST',
+      body: JSON.stringify(reqBody),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
+
+      const streamReader: () => void = () => {
+        return reader!.read().then(({ done, value }) => {
+          if (done) {
+            console.log('Stream has ended');
+            return;
+          }
+
+          // Convert Uint8Array to string using TextDecoder
+          const chunk = decoder.decode(value);
+
+          // Handle the streamed chunk of data
+          const splitChunk = chunk.split('data: ')[1];
+          if (splitChunk === '[DONE]') return;
+          const parsed = JSON.parse(splitChunk);
+          this.modalText.setValue(this.modalText.value + parsed.choices[0].text);
+          console.log(chunk);
+          console.log(splitChunk);
+          console.log(parsed.choices[0]['finish_reason']);
+          if (parsed.choices[0]['finish_reason'] === 'stop') return;
+
+          // Continue reading the stream
+          return streamReader();
+        });
+      };
+
+      return streamReader();
     });
+
+    this.modalText.setValue('');
+    this.modalText.markAsUntouched();
+    this.modalShown = true;
   }
 }

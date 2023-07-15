@@ -1,10 +1,23 @@
 import { OPENAI_KEY } from "./secrets.js";
 import { Configuration, OpenAIApi } from "openai";
 import express from "express";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 const port = process.env["PORT"] || 3001;
+
+const allowedOrigins = ["http://localhost:4200"];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+app.use(cors(corsOptions));
 
 const configuration = new Configuration({
   apiKey: OPENAI_KEY,

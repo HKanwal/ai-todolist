@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 const port = process.env["PORT"] || 3001;
 
-const allowedOrigins = ["http://localhost:4200", "https://hkanwal.github.io/angular-todolist/"];
+const allowedOrigins = ["http://localhost:4200", "https://hkanwal.github.io"];
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {

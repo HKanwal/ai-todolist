@@ -30,7 +30,7 @@ jobs:
           cp ./node_modules/.gitignore .
           cp -r dist/* .
           touch .nojekyll
-          git add .gitignore .nojekyll dist/
+          git add -f .gitignore .nojekyll dist/
           git commit -m "Deploy to GitHub Pages (Automated)"
           git push origin gh-pages
       

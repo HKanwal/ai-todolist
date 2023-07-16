@@ -26,7 +26,7 @@ jobs:
           
           git checkout --orphan gh-pages
           git rm -rf .
-          cp -r dist/*
+          cp -r dist/* .
           touch .nojekyll
           git add .
           git commit -m "Deploy to GitHub Pages (Automated)"

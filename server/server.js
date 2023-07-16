@@ -1,4 +1,3 @@
-import { OPENAI_KEY } from "./secrets.js";
 import { Configuration, OpenAIApi } from "openai-edge";
 import express from "express";
 import cors from "cors";
@@ -21,7 +20,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const configuration = new Configuration({
-  apiKey: process.env["OPENAI_KEY"] || OPENAI_KEY,
+  apiKey: process.env["OPENAI_KEY"],
 });
 const openai = new OpenAIApi(configuration);
 

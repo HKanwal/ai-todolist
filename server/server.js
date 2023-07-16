@@ -80,4 +80,9 @@ app.post(["/"], async (req, res) => {
   }
 });
 
+// Endpoint for server testing
+app.get("test", (req, res) => {
+  res.send("<h1>It works!</h1>");
+});
+
 app.listen(port, () => console.log(`angular-todolist-server app listening on port ${port}!`));

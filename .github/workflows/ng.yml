@@ -34,5 +34,5 @@ jobs:
           touch .nojekyll
           git add -f .gitignore .nojekyll dist/
           git commit -m "Deploy to GitHub Pages (Automated)"
-          git push origin gh-pages
+          git push --force origin gh-pages
       

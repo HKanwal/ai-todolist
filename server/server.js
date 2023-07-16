@@ -80,7 +80,7 @@ app.post(["/"], async (req, res) => {
 });
 
 // Endpoint for server testing
-app.get("test", (req, res) => {
+app.get("/test/", (req, res) => {
   res.send("<h1>It works!</h1>");
 });
 

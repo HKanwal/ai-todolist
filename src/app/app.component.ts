@@ -25,7 +25,7 @@ export class AppComponent {
   editing: 'NotEditing' | { date: string; i: number } = 'NotEditing';
 
   constructor(private http: HttpClient) {
-    console.log('App initiated! CD Works!');
+    console.log('App initiated! CD Works! Attempt 2');
   }
 
   formatDate(date: string) {

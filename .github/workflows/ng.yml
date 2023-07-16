@@ -25,11 +25,12 @@ jobs:
           git config --global user.email "hsk532991@gmail.com"
           
           git checkout --orphan gh-pages
+          cp .gitignore ./node_modules/
           git rm -rf .
-          git restore .gitignore
+          cp ./node_modules/.gitignore .
           cp -r dist/* .
           touch .nojekyll
-          git add .
+          git add .gitignore .nojekyll dist/
           git commit -m "Deploy to GitHub Pages (Automated)"
           git push origin gh-pages
       

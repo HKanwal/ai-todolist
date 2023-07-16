@@ -23,6 +23,8 @@ jobs:
         run: |
           git config --global user.name "Harkeerat Kanwal"
           git config --global user.email "hsk532991@gmail.com"
+          git config user.name
+          git config user.email
           
           git checkout --orphan gh-pages
           cp .gitignore ./node_modules/

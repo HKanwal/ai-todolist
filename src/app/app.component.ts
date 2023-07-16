@@ -24,7 +24,9 @@ export class AppComponent {
   modalText = new FormControl('', [Validators.required]);
   editing: 'NotEditing' | { date: string; i: number } = 'NotEditing';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log('App initiated!');
+  }
 
   formatDate(date: string) {
     return date.split(', ')[0];

@@ -10,23 +10,26 @@ jobs:
     name: Check files
     runs-on: ubuntu-latest
     outputs:
-      deploy: ${{ true }}
+      deploy: ${{ steps.file_check.outputs.deploy }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
       
       - name: Check modified files
+        id: file_check
         run: |
           git diff --name-only HEAD^ HEAD > files.txt
           while IFS= read -r file
           do
             echo $file
-            if [[ $file != server/* ]]; then
-              echo "This modified file IS NOT under the 'server' folder."
+            if [[ $file == server/* ]]; then
+              echo "Detected this file as a serverside file."
+              echo "deploy=true" >> $GITHUB_OUTPUT
               break
             else
-              echo "This modified file IS a server file."
+              echo "This file is not a serverside file."
+              echo "deploy=false" >> $GITHUB_OUTPUT
             fi
           done < files.txt
   

@@ -10,7 +10,7 @@ jobs:
     name: Check files
     runs-on: ubuntu-latest
     outputs:
-      deploy: ${{ false }}
+      deploy: ${{ true }}
     steps:
       - uses: actions/checkout@v3
         with:

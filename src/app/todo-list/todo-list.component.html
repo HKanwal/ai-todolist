@@ -19,4 +19,9 @@
       <div class="shrinker" *ngIf="!done && todo.done === 'Done'"></div>
     </div>
   </div>
+
+  <span class="placeholder" *ngIf="!done && allDone()">All done!</span>
+  <span class="placeholder" *ngIf="done && noneDone()"
+    >Your completed TO-DOs will show up here!</span
+  >
 </div>

@@ -28,6 +28,29 @@ export class TodoListComponent {
     );
   }
 
+  // This is bad practice because it is an expensive calculation that runs every
+  // re-render to determine whether or not to show placeholder text
+  allDone() {
+    console.log('Checking if all done');
+    for (let date in this.todos) {
+      if (this.todos[date].find((todo) => todo.done !== 'Done')) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // This is bad practice because it is an expensive calculation that runs every
+  // re-render to determine whether or not to show placeholder text
+  noneDone() {
+    for (let date in this.todos) {
+      if (this.todos[date].find((todo) => todo.done === 'Done')) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   handleCheck(date: string, i: number) {
     this.todos[date][i].done = 'InDoneAnimation';
     setTimeout(() => {

@@ -12,6 +12,7 @@ jobs:
       - name: Check modified files
         run: |
           echo "========== check paths of modified files =========="
+          git pull
           git log
           git branch
           git diff HEAD^ HEAD

@@ -1,11 +1,42 @@
 name: Fly Deploy
+
 on:
   push:
     branches:
       - main
+
 jobs:
+  check:
+    name: Check files
+    runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.file_check.outputs.deploy }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      
+      - name: Check modified files
+        id: file_check
+        run: |
+          git diff --name-only HEAD^ HEAD > files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file == server/* ]]; then
+              echo "Detected this file as a serverside file."
+              echo "deploy=true" >> $GITHUB_OUTPUT
+              break
+            else
+              echo "This file is not a serverside file."
+              echo "deploy=false" >> $GITHUB_OUTPUT
+            fi
+          done < files.txt
+  
   deploy:
     name: Deploy app
+    needs: check
+    if: needs.check.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

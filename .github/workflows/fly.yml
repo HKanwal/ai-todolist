@@ -12,6 +12,8 @@ jobs:
       - name: Check modified files
         run: |
           echo "========== check paths of modified files =========="
+          git log
+          git branch
           git diff HEAD^ HEAD
           #git diff --name-only HEAD^ HEAD > files.txt
           #while IFS= read -r file

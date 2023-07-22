@@ -7,6 +7,8 @@ export type Todos = {
   }[];
 };
 
+type InitStage = 'Uninitialized' | 'Initialized' | 'PostInit';
+
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
@@ -14,9 +16,25 @@ export type Todos = {
 })
 export class TodoListComponent {
   @Input() done = false;
-  @Input() shown = true;
+  _shown = true;
+  @Input() initialAnim = true;
+  initStage: InitStage = 'Uninitialized';
   @Input() todos: Todos = {};
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
+
+  @Input()
+  set shown(newVal: boolean) {
+    if (this.initStage === 'Uninitialized') {
+      this.initStage = 'Initialized';
+    } else if (this.initStage === 'Initialized') {
+      this.initStage = 'PostInit';
+    }
+    this._shown = newVal;
+  }
+
+  get shown() {
+    return this._shown;
+  }
 
   formatDate(date: string) {
     return date.split(', ')[0];
@@ -31,7 +49,6 @@ export class TodoListComponent {
   // This is bad practice because it is an expensive calculation that runs every
   // re-render to determine whether or not to show placeholder text
   allDone() {
-    console.log('Checking if all done');
     for (let date in this.todos) {
       if (this.todos[date].find((todo) => todo.done !== 'Done')) {
         return false;

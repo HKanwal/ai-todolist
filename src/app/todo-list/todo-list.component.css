@@ -2,6 +2,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
+  opacity: 0;
 
   position: absolute;
   bottom: 0;

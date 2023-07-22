@@ -25,7 +25,12 @@
       [todos]="todos"
       (edit)="handleEdit($event.date, $event.i)"
     />
-    <app-todo-list [done]="true" [shown]="screenTransition === 'ToDone'" [todos]="todos" />
+    <app-todo-list
+      [done]="true"
+      [initialAnim]="false"
+      [shown]="screenTransition === 'ToDone'"
+      [todos]="todos"
+    />
   </div>
 
   <div

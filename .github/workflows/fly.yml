@@ -45,8 +45,30 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         working-directory: ./server
-      - name: Tag deployment
+        
+  tag:
+    name: Tag deployment
+    needs: [check, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check tag
+        id: check_tag
         run: |
-          git tag -d fly.deployment
-          git tag -a fly.deployment HEAD -m "Tagging the current Fly deployment (Automated)"
-          git push origin fly.deployment
+          TAG_NAME="fly.deployment"
+          if git show-ref --tags --quiet --verify "refs/tags/$TAG_NAME"; then
+            echo "Tag $TAG_NAME exists"
+            exit 0
+          else
+            echo "Tag $TAG_NAME does not exist"
+            exit 1
+          fi
+      - name: Delete tag
+        if: steps.check_tag.outcome == 'success'
+        run: |
+          TAG_NAME="fly.deployment"
+          git tag -d "$TAG_NAME"
+          git push --delete origin "$TAG_NAME"
+        #run: |
+        #  git tag -d fly.deployment
+        #  git tag -a fly.deployment HEAD -m "Tagging the current Fly deployment (Automated)"
+        #  git push origin fly.deployment

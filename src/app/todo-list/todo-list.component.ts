@@ -20,6 +20,7 @@ export class TodoListComponent {
   @Input() initialAnim = true;
   initStage: InitStage = 'Uninitialized';
   @Input() todos: Todos = {};
+  @Output() check = new EventEmitter();
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
 
   @Input()
@@ -56,6 +57,10 @@ export class TodoListComponent {
       }
     }
     return true;
+  }
+
+  handleCheck() {
+    this.check.emit();
   }
 
   handleEdit(date: string, i: number) {

@@ -23,6 +23,7 @@
       [done]="false"
       [shown]="screenTransition !== 'ToDone'"
       [todos]="todos"
+      (check)="handleCheck()"
       (edit)="handleEdit($event.date, $event.i)"
     />
     <app-todo-list

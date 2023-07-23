@@ -25,11 +25,19 @@ export class AppComponent {
   editing: 'NotEditing' | { date: string; i: number } = 'NotEditing';
 
   constructor(private http: HttpClient) {
-    console.log('App initiated! CD Works! Attempt 2');
+    const localTodos = localStorage.getItem('todos');
+
+    if (localTodos !== null) {
+      this.todos = JSON.parse(localTodos);
+    }
   }
 
-  formatDate(date: string) {
-    return date.split(', ')[0];
+  saveLocally() {
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
+  handleCheck() {
+    this.saveLocally();
   }
 
   handleCreateClick() {
@@ -64,6 +72,7 @@ export class AppComponent {
       if (!this.todos[getToday()]) this.todos[getToday()] = [];
       this.todos[getToday()].push({ text: this.modalText.value ?? '', done: 'InInitAnimation' });
     }
+    this.saveLocally();
 
     this.modalShown = false;
     this.modalText.setValue('');

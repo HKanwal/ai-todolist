@@ -10,6 +10,7 @@
     [date]="todolist.key"
     [done]="done"
     [todos]="todolist.value"
+    (check)="handleCheck()"
     (edit)="handleEdit($event.date, $event.i)"
   />
 

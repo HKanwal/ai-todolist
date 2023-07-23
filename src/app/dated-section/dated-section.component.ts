@@ -11,9 +11,10 @@ export type Todos = {
   styleUrls: ['./dated-section.component.css'],
 })
 export class DatedSectionComponent {
-  @Input() date: string = '1905-01-01';
+  @Input() date: string = 'Jan 01, 1905';
   @Input() done = false;
   @Input() todos: Todos = [];
+  @Output() check = new EventEmitter();
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
 
   formatDate(date: string) {
@@ -30,6 +31,7 @@ export class DatedSectionComponent {
     this.todos[i].done = 'InDoneAnimation';
     setTimeout(() => {
       this.todos[i].done = 'Done';
+      this.check.emit();
     }, 500);
   }
 

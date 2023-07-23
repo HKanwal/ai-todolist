@@ -18,13 +18,17 @@ type ChatDatum = {
   model: string;
   choices: {
     index: number;
-    delta: {
-      role: 'assistant';
-      content: string;
-    };
+    delta:
+      | {
+          role: 'assistant';
+          content: string;
+        }
+      | {};
     finish_reason: null | 'stop';
   }[];
 };
+
+type AiChoices = 'Ungenerated' | 'Choice0' | 'Choice1' | 'Choice2';
 
 @Component({
   selector: 'app-root',
@@ -41,6 +45,10 @@ export class AppComponent {
 
   typeTimer: null | NodeJS.Timer = null;
   textBuffer: string[] = [];
+
+  choices = ['', '', ''];
+  dispChoice: AiChoices = 'Ungenerated';
+  lastReqBody: string[] = [];
 
   constructor(private http: HttpClient) {
     const localTodos = localStorage.getItem('todos');
@@ -66,8 +74,8 @@ export class AppComponent {
       if (char !== undefined) {
         this.modalText.setValue(this.modalText.value + char);
       } else {
-        console.log(this.typeTimer);
         clearInterval(this.typeTimer!);
+        this.typeTimer = null;
       }
     }, 80);
   }
@@ -120,7 +128,7 @@ export class AppComponent {
     this.modalShown = true;
   }
 
-  handleRoboBtnClick() {
+  getThreeLatest() {
     const threeLatestDates: string[] = [];
     const threeLatest: DatedTodos[string] = [];
 
@@ -137,7 +145,49 @@ export class AppComponent {
       if (threeLatest.length === 3) break;
     }
 
-    const reqBody = { todos: threeLatest.map((todo) => todo.text) };
+    return threeLatest.map((todo) => todo.text);
+  }
+
+  handleRoboBtnClick() {
+    const latestThree = this.getThreeLatest();
+
+    this.modalText.setValue('');
+    this.modalText.markAsUntouched();
+    this.modalShown = true;
+    this.textBuffer = [];
+
+    if (
+      this.lastReqBody.length > 0 &&
+      latestThree[0] === this.lastReqBody[0] &&
+      latestThree[1] === this.lastReqBody[1] &&
+      latestThree[2] === this.lastReqBody[2]
+    ) {
+      switch (this.dispChoice) {
+        case 'Choice0':
+          this.typeText(this.choices[1]);
+          this.dispChoice = 'Choice1';
+          break;
+
+        case 'Choice1':
+          this.typeText(this.choices[2]);
+          this.dispChoice = 'Choice2';
+          break;
+
+        case 'Choice2':
+          this.typeText(this.choices[0]);
+          this.dispChoice = 'Choice0';
+          break;
+
+        default:
+          console.error('THIS SHOULD NEVER RUN');
+      }
+
+      return;
+    }
+
+    this.lastReqBody = latestThree;
+    const reqBody = { todos: latestThree };
+
     fetch(apiUrl, {
       method: 'POST',
       body: JSON.stringify(reqBody),
@@ -147,11 +197,12 @@ export class AppComponent {
     }).then((res) => {
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
+      this.choices = ['', '', ''];
+      let choiceBeingRead = 0;
 
       const streamReader: () => void = () => {
         return reader!.read().then(({ done, value }) => {
           if (done) {
-            console.log('Stream has ended');
             return;
           }
 
@@ -166,13 +217,22 @@ export class AppComponent {
             }
           });
           const deltas = datums.map((datum) => {
-            return datum.choices[0].delta.content;
+            if ('content' in datum.choices[0].delta) {
+              return datum.choices[0].delta.content;
+            } else {
+              return '';
+            }
           });
           for (let delta of deltas) {
             if (delta === '\n') {
-              return;
+              choiceBeingRead++;
             } else {
+              this.choices[choiceBeingRead] += delta;
+            }
+
+            if (choiceBeingRead === 0) {
               this.typeText(delta);
+              this.dispChoice = 'Choice0';
             }
           }
 
@@ -183,9 +243,5 @@ export class AppComponent {
 
       return streamReader();
     });
-
-    this.modalText.setValue('');
-    this.modalText.markAsUntouched();
-    this.modalShown = true;
   }
 }

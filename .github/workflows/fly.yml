@@ -52,7 +52,7 @@ jobs:
         
   tag:
     name: Tag deployment
-    needs: check
+    needs: [check, deploy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

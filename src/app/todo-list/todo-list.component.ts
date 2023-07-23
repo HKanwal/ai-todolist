@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Todos } from '../dated-section/dated-section.component';
 
-export type Todos = {
-  [date in string]: {
-    text: string;
-    done: 'InInitAnimation' | 'NotDone' | 'InDoneAnimation' | 'Done';
-  }[];
+export type DatedTodos = {
+  [date in string]: Todos;
 };
 
 type InitStage = 'Uninitialized' | 'Initialized' | 'PostInit';
@@ -19,7 +17,7 @@ export class TodoListComponent {
   _shown = true;
   @Input() initialAnim = true;
   initStage: InitStage = 'Uninitialized';
-  @Input() todos: Todos = {};
+  @Input() todos: DatedTodos = {};
   @Output() check = new EventEmitter();
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
 
@@ -41,7 +39,7 @@ export class TodoListComponent {
   // re-render to determine whether or not to show placeholder text
   allDone() {
     for (let date in this.todos) {
-      if (this.todos[date].find((todo) => todo.done !== 'Done')) {
+      if (this.todos[date].find((todo) => todo.done !== 'Done' && todo.done !== 'Hidden')) {
         return false;
       }
     }
@@ -52,7 +50,7 @@ export class TodoListComponent {
   // re-render to determine whether or not to show placeholder text
   noneDone() {
     for (let date in this.todos) {
-      if (this.todos[date].find((todo) => todo.done === 'Done')) {
+      if (this.todos[date].find((todo) => todo.done === 'Done' || todo.done === 'Hidden')) {
         return false;
       }
     }

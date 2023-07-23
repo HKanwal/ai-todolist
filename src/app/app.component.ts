@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { HttpClient } from '@angular/common/http';
-import { Todos } from './todo-list/todo-list.component';
+import { DatedTodos } from './todo-list/todo-list.component';
 import { apiUrl } from 'src/constants';
 
 function getToday() {
@@ -18,7 +18,7 @@ function getToday() {
 })
 export class AppComponent {
   title = 'angular-todolist';
-  todos: Todos = { [getToday()]: [{ text: 'Create a new TODO!', done: 'NotDone' }] };
+  todos: DatedTodos = { [getToday()]: [{ text: 'Create a new TODO!', done: 'NotDone' }] };
   screenTransition: 'Init' | 'ToDone' | 'ToTodo' = 'Init';
   modalShown = false;
   modalText = new FormControl('', [Validators.required]);
@@ -86,7 +86,7 @@ export class AppComponent {
 
   handleRoboBtnClick() {
     const threeLatestDates: string[] = [];
-    const threeLatest: Todos[string] = [];
+    const threeLatest: DatedTodos[string] = [];
 
     for (let date in this.todos) {
       threeLatestDates.push(date);

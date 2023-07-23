@@ -10,7 +10,7 @@ type DisplayState = 'FadingIn' | 'FadingOut' | 'Hidden';
 
 export type Todos = {
   text: string;
-  done: 'InInitAnimation' | 'NotDone' | 'InDoneAnimation' | 'Done';
+  done: 'InInitAnimation' | 'NotDone' | 'InDoneAnimation' | 'Done' | 'Hidden';
 }[];
 
 @Component({
@@ -22,12 +22,27 @@ export class DatedSectionComponent implements DoCheck {
   @Input() date: string = 'Jan 01, 1905';
   displayState: DisplayState = 'Hidden';
   @Input() done = false;
-  @Input() todos: Todos = [];
+  @Input() _todos: Todos = [];
   @Output() check = new EventEmitter();
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
 
+  @Input()
+  set todos(newVal: Todos) {
+    this._todos = newVal;
+    this._todos.forEach((todo) => {
+      if (todo.done === 'Done') {
+        todo.done = 'Hidden';
+      }
+    });
+  }
+
+  get todos() {
+    return this._todos;
+  }
+
   ngDoCheck() {
     if (this.hasDispTodos()) {
+      console.log('has disp todos');
       this.displayState = 'FadingIn';
     }
   }
@@ -42,7 +57,10 @@ export class DatedSectionComponent implements DoCheck {
 
   hasDispTodos() {
     return !!this.todos.find((todo) => {
-      return (!this.done && todo.done !== 'Done') || (this.done && todo.done === 'Done');
+      return (
+        (!this.done && todo.done !== 'Done' && todo.done !== 'Hidden') ||
+        (this.done && (todo.done === 'Done' || todo.done === 'Hidden'))
+      );
     });
   }
 
@@ -51,6 +69,9 @@ export class DatedSectionComponent implements DoCheck {
     setTimeout(() => {
       this.todos[i].done = 'Done';
       this.check.emit();
+      setTimeout(() => {
+        this.todos[i].done = 'Hidden';
+      }, 500);
 
       if (!this.hasDispTodos()) {
         this.displayState = 'FadingOut';

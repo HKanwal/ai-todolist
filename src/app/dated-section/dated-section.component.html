@@ -9,7 +9,10 @@
   </h3>
   <div *ngFor="let todo of todos; index as i">
     <app-todo-item
-      [class.hidden]="(!done && todo.done === 'Done') || (done && todo.done !== 'Done')"
+      [class.hidden]="
+        (!done && (todo.done === 'Done' || todo.done === 'Hidden')) ||
+        (done && todo.done !== 'Done' && todo.done !== 'Hidden')
+      "
       [initAnimation]="todo.done === 'InInitAnimation'"
       [text]="todo.text"
       [done]="done"

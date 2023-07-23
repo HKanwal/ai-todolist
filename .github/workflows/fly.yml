@@ -52,14 +52,18 @@ jobs:
         
   tag:
     name: Tag deployment
-    needs: [check, deploy]
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Fetch tags
+        run: git fetch --tags
+      
       - name: Check tag
         id: check_tag
         run: |
-          TAG_NAME="fly.deployment"
+          TAG_NAME=fly.deployment
           if git show-ref --tags --quiet --verify "refs/tags/$TAG_NAME"; then
             echo "Tag $TAG_NAME exists"
             echo "exists=true" >> $GITHUB_OUTPUT

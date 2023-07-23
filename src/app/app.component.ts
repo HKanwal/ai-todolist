@@ -126,6 +126,11 @@ export class AppComponent {
 
     this.modalShown = false;
     this.modalText.setValue('');
+    this.textBuffer = [];
+    if (this.typeTimer !== null) {
+      clearInterval(this.typeTimer);
+      this.typeTimer = null;
+    }
   }
 
   handleEdit(date: string, i: number) {

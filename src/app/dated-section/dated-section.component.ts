@@ -6,6 +6,8 @@ function getYear() {
   return year;
 }
 
+type InitStage = 'Uninitialized' | 'Initialized' | 'PostInit';
+
 export type Todos = {
   text: string;
   done: 'InInitAnimation' | 'NotDone' | 'InDoneAnimation' | 'Done';
@@ -17,11 +19,21 @@ export type Todos = {
   styleUrls: ['./dated-section.component.css'],
 })
 export class DatedSectionComponent {
-  @Input() date: string = 'Jan 01, 1905';
+  @Input() _date: string = 'Jan 01, 1905';
+  @Input() initStage: InitStage = 'Initialized';
   @Input() done = false;
   @Input() todos: Todos = [];
   @Output() check = new EventEmitter();
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
+
+  @Input()
+  set date(newVal: string) {
+    this._date = newVal;
+  }
+
+  get date() {
+    return this._date;
+  }
 
   formatDate(date: string) {
     if (date.split(', ')[1] !== getYear()) {

@@ -93,6 +93,12 @@ export class AppComponent {
   handleModalClose() {
     this.modalShown = false;
     this.editing = 'NotEditing';
+
+    this.textBuffer = [];
+    if (this.typeTimer !== null) {
+      clearInterval(this.typeTimer);
+      this.typeTimer = null;
+    }
   }
 
   handleToggleChange(change: MatSlideToggleChange) {
@@ -154,7 +160,6 @@ export class AppComponent {
     this.modalText.setValue('');
     this.modalText.markAsUntouched();
     this.modalShown = true;
-    this.textBuffer = [];
 
     if (
       this.lastReqBody.length > 0 &&

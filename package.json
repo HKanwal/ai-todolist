@@ -1,11 +1,11 @@
 {
-  "name": "angular-todolist",
+  "name": "ai-todolist",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "gh-build": "ng build --base-href \"https://hkanwal.github.io/angular-todolist/\"",
+    "gh-build": "ng build --base-href \"https://hkanwal.github.io/ai-todolist/\"",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

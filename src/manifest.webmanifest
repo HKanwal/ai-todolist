@@ -1,6 +1,6 @@
 {
-  "name": "angular-todolist",
-  "short_name": "angular-todolist",
+  "name": "ai-todolist",
+  "short_name": "ai-todolist",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

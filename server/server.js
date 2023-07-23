@@ -104,4 +104,4 @@ app.get("/test/", (req, res) => {
   res.send("Final CD test</h1>");
 });
 
-app.listen(port, () => console.log(`angular-todolist-server app listening on port ${port}!`));
+app.listen(port, () => console.log(`ai-todolist-server app listening on port ${port}!`));

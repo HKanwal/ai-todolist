@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for angular-todolist-server on 2023-07-13T17:30:12-04:00
+# fly.toml app configuration file generated for ai-todolist-server on 2023-07-13T17:30:12-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "angular-todolist-server"
+app = "ai-todolist-server"
 primary_region = "yyz"
 
 [build]

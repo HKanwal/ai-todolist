@@ -24,11 +24,32 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const basePrompt =
-  'I am a helpful AI assistant. If you give me a list of items on your TO-DO list, I will generate another TO-DO that aligns with your goals or corresponds to your demographic. I will try not to generate a TO-DO that you may not neccessarily need to do.\n\nTO-DOs: Do homework, Go to gym, Finish math assignment\nA: Do additional studying\n\nTO-DOs: Watch "The Incredible Hulk", Watch "Iron Man 2", Watch "Avengers: Age of Ultron"\nA: Watch "Doctor Strange"\n\nTO-DOs: Drink protein, Go for my daily jog, Eat an apple\nA: Drink fruit smoothie\n\nTO-DOs: ';
+const baseMessages = [
+  {
+    role: "system",
+    content:
+      "Given the user's todo list, you will generate three todos that align with the user's goals or correspond to their demographic. You will try not to generate a todo that the user may not necessarily need to do.",
+  },
+  {
+    role: "user",
+    content: 'Watch "Ant-Man"',
+  },
+  {
+    role: "assistant",
+    content: 'Watch "Black Panther"\nWatch "Iron Man"\nWatch "Thor"',
+  },
+  {
+    role: "user",
+    content: "Drink protein, Do math homework, Make personal website",
+  },
+  {
+    role: "assistant",
+    content: "Go to the gym\nStudy math\nAdd mobile compatibility to personal website",
+  },
+];
 
-function generatePrompt(todos) {
-  return basePrompt + todos.join(", ") + "\nA: ";
+function generateMessages(todos) {
+  return [...baseMessages, { role: "user", content: todos.join(", ") }];
 }
 
 app.post(["/"], async (req, res) => {
@@ -42,15 +63,14 @@ app.post(["/"], async (req, res) => {
   const todos = body.todos;
   let completion = null;
   try {
-    completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: generatePrompt(todos),
+    completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: generateMessages(todos),
       temperature: 0,
       max_tokens: 25,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-      stop: ["\n", "."],
       stream: true,
     });
   } catch (e) {

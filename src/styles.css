@@ -17,7 +17,7 @@ html {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: rgb(var(--white));
 
-  background: rgb(var(--dark));
+  background: rgb(var(--medium));
 }
 
 @media only screen and (max-width: 400px) {

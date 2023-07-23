@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 
 function getYear() {
   const today = new Date();
@@ -6,7 +6,7 @@ function getYear() {
   return year;
 }
 
-type InitStage = 'Uninitialized' | 'Initialized' | 'PostInit';
+type DisplayState = 'FadingIn' | 'FadingOut' | 'Hidden';
 
 export type Todos = {
   text: string;
@@ -18,21 +18,18 @@ export type Todos = {
   templateUrl: './dated-section.component.html',
   styleUrls: ['./dated-section.component.css'],
 })
-export class DatedSectionComponent {
-  @Input() _date: string = 'Jan 01, 1905';
-  @Input() initStage: InitStage = 'Initialized';
+export class DatedSectionComponent implements DoCheck {
+  @Input() date: string = 'Jan 01, 1905';
+  displayState: DisplayState = 'Hidden';
   @Input() done = false;
   @Input() todos: Todos = [];
   @Output() check = new EventEmitter();
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
 
-  @Input()
-  set date(newVal: string) {
-    this._date = newVal;
-  }
-
-  get date() {
-    return this._date;
+  ngDoCheck() {
+    if (this.hasDispTodos()) {
+      this.displayState = 'FadingIn';
+    }
   }
 
   formatDate(date: string) {
@@ -54,6 +51,13 @@ export class DatedSectionComponent {
     setTimeout(() => {
       this.todos[i].done = 'Done';
       this.check.emit();
+
+      if (!this.hasDispTodos()) {
+        this.displayState = 'FadingOut';
+        setTimeout(() => {
+          this.displayState = 'Hidden';
+        }, 500);
+      }
     }, 500);
   }
 

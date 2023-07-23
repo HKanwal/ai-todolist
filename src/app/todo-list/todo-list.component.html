@@ -8,7 +8,6 @@
   <app-dated-section
     *ngFor="let todolist of todos | reversedKeyvalue"
     [date]="todolist.key"
-    [initStage]="initStage"
     [done]="done"
     [todos]="todolist.value"
     (check)="handleCheck()"

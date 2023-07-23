@@ -1,7 +1,9 @@
 <div>
   <h3
     class="date"
-    [class]="hasDispTodos() ? 'fade-in' : initStage === 'PostInit' ? 'fade-out' : 'hidden'"
+    [class.hidden]="displayState === 'Hidden'"
+    [class.fade-in]="displayState === 'FadingIn'"
+    [class.fade-out]="displayState === 'FadingOut'"
   >
     {{ formatDate(date) }}
   </h3>

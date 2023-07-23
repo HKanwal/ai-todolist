@@ -39,6 +39,9 @@ export class AppComponent {
   modalText = new FormControl('', [Validators.required]);
   editing: 'NotEditing' | { date: string; i: number } = 'NotEditing';
 
+  typeTimer: null | NodeJS.Timer = null;
+  textBuffer: string[] = [];
+
   constructor(private http: HttpClient) {
     const localTodos = localStorage.getItem('todos');
 
@@ -49,6 +52,24 @@ export class AppComponent {
 
   saveLocally() {
     localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
+  typeText(text: string) {
+    this.textBuffer.push(...text.split(''));
+
+    if (this.typeTimer !== null) {
+      return;
+    }
+
+    this.typeTimer = setInterval(() => {
+      const char = this.textBuffer.shift();
+      if (char !== undefined) {
+        this.modalText.setValue(this.modalText.value + char);
+      } else {
+        console.log(this.typeTimer);
+        clearInterval(this.typeTimer!);
+      }
+    }, 80);
   }
 
   handleCheck() {
@@ -151,7 +172,7 @@ export class AppComponent {
             if (delta === '\n') {
               return;
             } else {
-              this.modalText.setValue(this.modalText.value + delta);
+              this.typeText(delta);
             }
           }
 

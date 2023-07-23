@@ -11,6 +11,21 @@ function getToday() {
   return `${month} ${date}, ${year}`;
 }
 
+type ChatDatum = {
+  id: string;
+  object: 'chat.completion.chunk';
+  created: number;
+  model: string;
+  choices: {
+    index: number;
+    delta: {
+      role: 'assistant';
+      content: string;
+    };
+    finish_reason: null | 'stop';
+  }[];
+};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -120,17 +135,25 @@ export class AppComponent {
           }
 
           // Convert Uint8Array to string using TextDecoder
-          const chunk = decoder.decode(value);
-
-          // Handle the streamed chunk of data
-          const splitChunk = chunk.split('data: ')[1];
-          if (splitChunk === '[DONE]') return;
-          const parsed = JSON.parse(splitChunk);
-          this.modalText.setValue(this.modalText.value + parsed.choices[0].text);
-          console.log(chunk);
-          console.log(splitChunk);
-          console.log(parsed.choices[0]['finish_reason']);
-          if (parsed.choices[0]['finish_reason'] === 'stop') return;
+          const chunks = decoder.decode(value).split('\n');
+          const datums: ChatDatum[] = [];
+          chunks.forEach((chunk) => {
+            if (chunk.length > 0) {
+              if (!chunk.includes('[DONE]')) {
+                datums.push(JSON.parse(chunk.split('data: ')[1]));
+              }
+            }
+          });
+          const deltas = datums.map((datum) => {
+            return datum.choices[0].delta.content;
+          });
+          for (let delta of deltas) {
+            if (delta === '\n') {
+              return;
+            } else {
+              this.modalText.setValue(this.modalText.value + delta);
+            }
+          }
 
           // Continue reading the stream
           return streamReader();

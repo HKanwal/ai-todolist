@@ -42,7 +42,6 @@ export class DatedSectionComponent implements DoCheck {
 
   ngDoCheck() {
     if (this.hasDispTodos()) {
-      console.log('has disp todos');
       this.displayState = 'FadingIn';
     }
   }

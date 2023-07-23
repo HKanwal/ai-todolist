@@ -12,6 +12,7 @@ html {
   --medium-tinted: 62, 63, 75;
   --dark: 32, 33, 35;
   --confirm: 25, 195, 125;
+  --link: 72, 161, 232;
 
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: rgb(var(--white));

@@ -152,7 +152,7 @@
 
   100% {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(15px);
   }
 }
 
@@ -163,11 +163,43 @@
 @keyframes show-up {
   0% {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(15px);
   }
 
   100% {
     opacity: 100%;
     transform: translateY(0);
   }
+}
+
+.link-container {
+  padding-top: 25px;
+  padding-bottom: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+}
+
+.gh-link {
+  color: rgb(var(--link));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  opacity: 0;
+  animation: fade-in 0.5s ease forwards;
+}
+
+.gh-link-icon {
+  transform: scale(0.7);
 }

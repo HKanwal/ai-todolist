@@ -58,18 +58,20 @@ jobs:
           TAG_NAME="fly.deployment"
           if git show-ref --tags --quiet --verify "refs/tags/$TAG_NAME"; then
             echo "Tag $TAG_NAME exists"
-            exit 0
+            echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "Tag $TAG_NAME does not exist"
-            exit 1
+            echo "exists=false" >> $GITHUB_OUTPUT
           fi
+          
       - name: Delete tag
-        if: steps.check_tag.outcome == 'success'
+        if: steps.check_tag.outputs.exists == 'true'
         run: |
           TAG_NAME="fly.deployment"
           git tag -d "$TAG_NAME"
           git push --delete origin "$TAG_NAME"
-        #run: |
-        #  git tag -d fly.deployment
-        #  git tag -a fly.deployment HEAD -m "Tagging the current Fly deployment (Automated)"
-        #  git push origin fly.deployment
+        
+      - name: Add tag
+        run: |
+          git tag -a fly.deployment HEAD -m "Tagging the current Fly deployment (Automated)"
+          git push origin fly.deployment

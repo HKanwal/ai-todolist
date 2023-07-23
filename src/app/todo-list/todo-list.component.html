@@ -5,20 +5,13 @@
   [class.hide-left]="(initialAnim || initStage === 'PostInit') && done && !shown"
   [class.show-left]="(initialAnim || initStage === 'PostInit') && done && shown"
 >
-  <div class="dated-section" *ngFor="let todolist of todos | reversedKeyvalue">
-    <h3 class="date" *ngIf="dateShowsTodo(todolist.key)">{{ formatDate(todolist.key) }}</h3>
-    <div *ngFor="let todo of todolist.value; index as i">
-      <app-todo-item
-        [class.hidden]="(!done && todo.done === 'Done') || (done && todo.done !== 'Done')"
-        [initAnimation]="todo.done === 'InInitAnimation'"
-        [text]="todo.text"
-        [done]="done"
-        (check)="handleCheck(todolist.key, i)"
-        (editClick)="handleEdit(todolist.key, i)"
-      />
-      <div class="shrinker" *ngIf="!done && todo.done === 'Done'"></div>
-    </div>
-  </div>
+  <app-dated-section
+    *ngFor="let todolist of todos | reversedKeyvalue"
+    [date]="todolist.key"
+    [done]="done"
+    [todos]="todolist.value"
+    (edit)="handleEdit($event.date, $event.i)"
+  />
 
   <span class="placeholder" *ngIf="!done && allDone()">All done!</span>
   <span class="placeholder" *ngIf="done && noneDone()"

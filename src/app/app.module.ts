@@ -18,6 +18,7 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { ReversedKeyvaluePipe } from './reversed-keyvalue.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { DatedSectionComponent } from './dated-section/dated-section.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     TodoItemComponent,
     TodoListComponent,
     ReversedKeyvaluePipe,
+    DatedSectionComponent,
   ],
   imports: [
     BrowserModule,

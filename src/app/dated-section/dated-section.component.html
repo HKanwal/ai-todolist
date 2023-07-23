@@ -1,0 +1,14 @@
+<div>
+  <h3 class="date" [class]="hasDispTodos() ? 'fade-in' : 'fade-out'">{{ formatDate(date) }}</h3>
+  <div *ngFor="let todo of todos; index as i">
+    <app-todo-item
+      [class.hidden]="(!done && todo.done === 'Done') || (done && todo.done !== 'Done')"
+      [initAnimation]="todo.done === 'InInitAnimation'"
+      [text]="todo.text"
+      [done]="done"
+      (check)="handleCheck(i)"
+      (editClick)="handleEdit(i)"
+    />
+    <div class="shrinker" *ngIf="!done && todo.done === 'Done'"></div>
+  </div>
+</div>

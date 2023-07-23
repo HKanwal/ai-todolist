@@ -36,16 +36,6 @@ export class TodoListComponent {
     return this._shown;
   }
 
-  formatDate(date: string) {
-    return date.split(', ')[0];
-  }
-
-  dateShowsTodo(date: string) {
-    return !!this.todos[date].find(
-      (todo) => (!this.done && todo.done !== 'Done') || (this.done && todo.done === 'Done')
-    );
-  }
-
   // This is bad practice because it is an expensive calculation that runs every
   // re-render to determine whether or not to show placeholder text
   allDone() {
@@ -66,13 +56,6 @@ export class TodoListComponent {
       }
     }
     return true;
-  }
-
-  handleCheck(date: string, i: number) {
-    this.todos[date][i].done = 'InDoneAnimation';
-    setTimeout(() => {
-      this.todos[date][i].done = 'Done';
-    }, 500);
   }
 
   handleEdit(date: string, i: number) {

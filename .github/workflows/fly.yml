@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+      
+env:
+  TAG_NAME: 'fly.deployment'
 
 jobs:
   check:
@@ -13,8 +16,6 @@ jobs:
       deploy: ${{ steps.file_check.outputs.deploy }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
           
       - name: Fetch tags
         run: git fetch --tags
@@ -22,7 +23,6 @@ jobs:
       - name: Check modified files
         id: file_check
         run: |
-          TAG_NAME=fly.deployment
           git diff --name-only $TAG_NAME HEAD > files.txt
           while IFS= read -r file
           do
@@ -59,11 +59,15 @@ jobs:
       
       - name: Fetch tags
         run: git fetch --tags
+        
+      - name: Set git config
+        run: |
+          git config --global user.name "Harkeerat Kanwal"
+          git config --global user.email "hsk532991@gmail.com"
       
       - name: Check tag
         id: check_tag
         run: |
-          TAG_NAME=fly.deployment
           if git show-ref --tags --quiet --verify "refs/tags/$TAG_NAME"; then
             echo "Tag $TAG_NAME exists"
             echo "exists=true" >> $GITHUB_OUTPUT
@@ -75,17 +79,10 @@ jobs:
       - name: Delete tag
         if: steps.check_tag.outputs.exists == 'true'
         run: |
-          git config --global user.name "Harkeerat Kanwal"
-          git config --global user.email "hsk532991@gmail.com"
-          
-          TAG_NAME=fly.deployment
           git tag -d $TAG_NAME
           git push --delete origin $TAG_NAME
         
       - name: Add tag
         run: |
-          git config --global user.name "Harkeerat Kanwal"
-          git config --global user.email "hsk532991@gmail.com"
-          
-          git tag -a fly.deployment HEAD -m "Tagging the current Fly deployment (Automated)"
-          git push origin fly.deployment
+          git tag -a $TAG_NAME HEAD -m "Tagging the current Fly deployment (Automated)"
+          git push origin $TAG_NAME

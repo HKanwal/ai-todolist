@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+function getYear() {
+  const today = new Date();
+  const [month, date, year] = today.toDateString().split(' ').slice(1);
+  return year;
+}
+
 export type Todos = {
   text: string;
   done: 'InInitAnimation' | 'NotDone' | 'InDoneAnimation' | 'Done';
@@ -18,7 +24,11 @@ export class DatedSectionComponent {
   @Output() edit = new EventEmitter<{ date: string; i: number }>();
 
   formatDate(date: string) {
-    return date.split(', ')[0];
+    if (date.split(', ')[1] !== getYear()) {
+      return date;
+    } else {
+      return date.split(', ')[0];
+    }
   }
 
   hasDispTodos() {

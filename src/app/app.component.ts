@@ -36,7 +36,6 @@ type AiChoices = 'Ungenerated' | 'Choice0' | 'Choice1' | 'Choice2';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'ai-todolist';
   todos: DatedTodos = { [getToday()]: [{ text: 'Create a new TODO!', done: 'NotDone' }] };
   screenTransition: 'Init' | 'ToDone' | 'ToTodo' = 'Init';
   modalShown = false;

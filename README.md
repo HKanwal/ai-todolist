@@ -6,7 +6,6 @@
 A todolist app with an AI twist. Click a button to have the AI recommend new todo items for you. Installable as a PWA on your mobile device.
 
 ## Stack
-
 ### Frontend
 
 [![Angular Static Badge](https://img.shields.io/badge/Angular-c3002f?logo=Angular)](https://angular.io/)

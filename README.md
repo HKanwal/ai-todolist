@@ -22,6 +22,10 @@ A todo-list app with an AI twist. Click a button to have the AI recommend new to
 [![Docker Static Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Fly.io Static Badge](https://img.shields.io/badge/Fly.io-8b5cf6)](https://fly.io/)
 
+## Continuous Deployment
+
+Continuous deployment workflows are active for both the frontend and backend. The frontend is automatically built and deployed to GitHub Pages [using this workflow](https://github.com/HKanwal/ai-todolist/blob/main/.github/workflows/ng.yml). The backend is automatically deployed to Fly.io [by this workflow](https://github.com/HKanwal/ai-todolist/blob/main/.github/workflows/fly.yml) if it detects a change from the previous server files (identified by a tag).
+
 ## Run Locally
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Remember to run `npm install` to install dependencies.

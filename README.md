@@ -1,6 +1,6 @@
-# ai-todolist
+# AI Todolist
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/ng.yml)
 
 ## Development server
 

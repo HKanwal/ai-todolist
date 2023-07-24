@@ -39,6 +39,10 @@ Node.js server is automatically deployed to Fly.io [by this workflow](https://gi
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Remember to run `npm install` to install dependencies.
 
+### Backend
+
+Run `cd server` to enter the server directory and `npm install` to install dependencies. Run `npm run dev` for a dev server on `http://localhost:3001/` in watch mode. You are required to add an `OPENAI_KEY` environment variable with an OpenAI API key.
+
 ## AI Model
 
 Powered by OpenAI's gpt-3.5-turbo model.

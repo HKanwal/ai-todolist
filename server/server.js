@@ -1,8 +1,7 @@
 import { Configuration, OpenAIApi } from "openai-edge";
 import express from "express";
 import cors from "cors";
-import redis from "redis";
-import expressLimiter from "express-limiter";
+import rateLimit from "express-rate-limit";
 const app = express();
 app.use(express.json());
 const port = process.env["PORT"] || 3001;
@@ -19,23 +18,18 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+const limiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 60 minutes
+  max: 30, // 30 reqs
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+app.use(limiter);
+
 const configuration = new Configuration({
   apiKey: process.env["OPENAI_KEY"],
 });
 const openai = new OpenAIApi(configuration);
-
-const redisClient = redis.createClient();
-const limiter = expressLimiter(app, redisClient);
-
-limiter({
-  path: "/",
-  method: "post",
-  lookup: ["connection.remoteAddress"],
-
-  // 2 requests per hour
-  total: 2,
-  expire: 1000 * 60 * 60,
-});
 
 const baseMessages = [
   {

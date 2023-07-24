@@ -9,6 +9,8 @@ A todolist app with an AI twist. Click a button to have the AI recommend new tod
 
 [![Angular Static Badge](https://img.shields.io/badge/Angular-c3002f?logo=Angular)](https://angular.io/)
 [![TypeScript Static Badge](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Atypescript)
+[![HTML Static Badge](https://img.shields.io/badge/HTML-E34F26?logo=html5&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Ahtml)
+[![CSS Static Badge](https://img.shields.io/badge/CSS-1572B6?logo=css3&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Acss)
 
 ## Development server
 

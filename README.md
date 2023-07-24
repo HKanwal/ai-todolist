@@ -3,6 +3,12 @@
 [![GitHub ng.yml Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/ng.yml)](https://github.com/HKanwal/ai-todolist/actions/workflows/ng.yml)
 [![GitHub fly.yml Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/fly.yml?logo=github&label=Continuous%20Deployment%20(Server))](https://github.com/HKanwal/ai-todolist/actions/workflows/fly.yml)
 
+A todolist app with an AI twist. Click a button to have the AI recommend new todo items for you. Installable as a PWA on your mobile device.
+
+## Stack
+
+[![Angular Static Badge](https://img.shields.io/badge/Angular-c3002f?logo=Angular)](https://angular.io/)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

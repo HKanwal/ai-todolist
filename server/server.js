@@ -105,7 +105,7 @@ app.post(["/"], async (req, res) => {
 
 // Endpoint for server testing
 app.get("/test/", (req, res) => {
-  res.send("Final CD test</h1>");
+  res.send("<h1>Final CD test</h1>");
 });
 
 app.listen(port, () => console.log(`ai-todolist-server app listening on port ${port}!`));

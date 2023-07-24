@@ -22,6 +22,10 @@ A todo-list app with an AI twist. Click a button to have the AI recommend new to
 [![Docker Static Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Fly.io Static Badge](https://img.shields.io/badge/Fly.io-8b5cf6)](https://fly.io/)
 
+## Rate Limits
+
+API requests are limited to 30 per hour. AI's context is limited to only the last 3 created todos. Each todo sent to the AI is limited to 120 characters.
+
 ## Continuous Deployment
 ### Frontend
 

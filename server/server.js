@@ -52,6 +52,8 @@ function generateMessages(todos) {
   return [...baseMessages, { role: "user", content: todos.join(", ") }];
 }
 
+const MSG_CHAR_LIMIT = 120;
+
 app.post(["/"], async (req, res) => {
   const body = req.body;
   if (!body.todos || typeof body.todos !== "object" || body.todos.length === 0) {
@@ -61,11 +63,13 @@ app.post(["/"], async (req, res) => {
   }
 
   const todos = body.todos;
+  const clippedTodos = todos.map((todo) => todo.substr(0, MSG_CHAR_LIMIT));
+
   let completion = null;
   try {
     completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: generateMessages(todos),
+      messages: generateMessages(clippedTodos),
       temperature: 0,
       max_tokens: 40,
       top_p: 1,

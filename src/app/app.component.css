@@ -202,3 +202,24 @@
 .gh-link-icon {
   transform: scale(0.7);
 }
+
+.spinner {
+  display: flex;
+  align-items: center;
+
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.margin-bottom {
+  margin-bottom: 10px;
+}

@@ -50,6 +50,8 @@ export class AppComponent {
   dispChoice: AiChoices = 'Ungenerated';
   lastReqBody: string[] = [];
 
+  loading = false;
+
   constructor(private http: HttpClient) {
     const localTodos = localStorage.getItem('todos');
 
@@ -93,6 +95,9 @@ export class AppComponent {
   handleModalClose() {
     this.modalShown = false;
     this.editing = 'NotEditing';
+    this.loading = false;
+    this.modalText.setErrors({ serverError: false });
+    this.modalText.setValue('');
 
     this.textBuffer = [];
     if (this.typeTimer !== null) {
@@ -126,6 +131,7 @@ export class AppComponent {
 
     this.modalShown = false;
     this.modalText.setValue('');
+    this.modalText.setErrors({ serverError: false });
     this.textBuffer = [];
     if (this.typeTimer !== null) {
       clearInterval(this.typeTimer);
@@ -167,6 +173,7 @@ export class AppComponent {
     this.modalShown = true;
 
     if (
+      this.dispChoice !== 'Ungenerated' &&
       this.lastReqBody.length > 0 &&
       latestThree[0] === this.lastReqBody[0] &&
       latestThree[1] === this.lastReqBody[1] &&
@@ -190,6 +197,7 @@ export class AppComponent {
 
         default:
           console.error('THIS SHOULD NEVER RUN');
+          console.log(this.dispChoice);
       }
 
       return;
@@ -197,6 +205,7 @@ export class AppComponent {
 
     this.lastReqBody = latestThree;
     const reqBody = { todos: latestThree };
+    this.loading = true;
 
     fetch(apiUrl, {
       method: 'POST',
@@ -204,54 +213,62 @@ export class AppComponent {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((res) => {
-      const reader = res.body?.getReader();
-      const decoder = new TextDecoder();
-      this.choices = ['', '', ''];
-      let choiceBeingRead = 0;
+    })
+      .then((res) => {
+        this.loading = false;
+        const reader = res.body?.getReader();
+        const decoder = new TextDecoder();
+        this.choices = ['', '', ''];
+        let choiceBeingRead = 0;
 
-      const streamReader: () => void = () => {
-        return reader!.read().then(({ done, value }) => {
-          if (done) {
-            return;
-          }
+        const streamReader: () => void = () => {
+          return reader!.read().then(({ done, value }) => {
+            if (done) {
+              return;
+            }
 
-          // Convert Uint8Array to string using TextDecoder
-          const chunks = decoder.decode(value).split('\n');
-          const datums: ChatDatum[] = [];
-          chunks.forEach((chunk) => {
-            if (chunk.length > 0) {
-              if (!chunk.includes('[DONE]')) {
-                datums.push(JSON.parse(chunk.split('data: ')[1]));
+            // Convert Uint8Array to string using TextDecoder
+            const chunks = decoder.decode(value).split('\n');
+            const datums: ChatDatum[] = [];
+            chunks.forEach((chunk) => {
+              if (chunk.length > 0) {
+                if (!chunk.includes('[DONE]')) {
+                  datums.push(JSON.parse(chunk.split('data: ')[1]));
+                }
+              }
+            });
+            const deltas = datums.map((datum) => {
+              if ('content' in datum.choices[0].delta) {
+                return datum.choices[0].delta.content;
+              } else {
+                return '';
+              }
+            });
+            for (let delta of deltas) {
+              if (delta === '\n') {
+                choiceBeingRead++;
+              } else {
+                this.choices[choiceBeingRead] += delta;
+              }
+
+              if (choiceBeingRead === 0) {
+                this.typeText(delta);
+                this.dispChoice = 'Choice0';
               }
             }
+
+            // Continue reading the stream
+            return streamReader();
           });
-          const deltas = datums.map((datum) => {
-            if ('content' in datum.choices[0].delta) {
-              return datum.choices[0].delta.content;
-            } else {
-              return '';
-            }
-          });
-          for (let delta of deltas) {
-            if (delta === '\n') {
-              choiceBeingRead++;
-            } else {
-              this.choices[choiceBeingRead] += delta;
-            }
+        };
 
-            if (choiceBeingRead === 0) {
-              this.typeText(delta);
-              this.dispChoice = 'Choice0';
-            }
-          }
-
-          // Continue reading the stream
-          return streamReader();
-        });
-      };
-
-      return streamReader();
-    });
+        return streamReader();
+      })
+      .catch((e) => {
+        this.loading = false;
+        this.modalText.markAsTouched();
+        this.modalText.setErrors({ serverError: true });
+        console.error(e);
+      });
   }
 }

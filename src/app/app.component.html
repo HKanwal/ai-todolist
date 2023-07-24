@@ -56,7 +56,7 @@
 
 <app-modal [shown]="modalShown" (onClose)="handleModalClose()" [hideX]="true">
   <div class="modal-content">
-    <mat-form-field>
+    <mat-form-field [class.margin-bottom]="modalText.hasError('serverError')">
       <mat-label>Enter TODO</mat-label>
       <input
         placeholder="Your TODO..."
@@ -65,19 +65,21 @@
         (input)="handleModalInput($event)"
         [value]="modalText.value"
         (keydown.enter)="handleSaveClick()"
-        [cdkTrapFocusAutoCapture]="modalShown"
-        [cdkTrapFocus]="modalShown"
+        [cdkTrapFocusAutoCapture]="modalShown && !loading"
+        [cdkTrapFocus]="modalShown && !loading"
         required
       />
+      <mat-error *ngIf="modalText.hasError('serverError')"> Unable to reach server </mat-error>
     </mat-form-field>
 
     <button
       mat-flat-button
       color="accent"
       (click)="handleSaveClick()"
-      [disabled]="modalText.invalid"
+      [disabled]="modalText.invalid || loading"
     >
-      Save
+      <span class="material-symbols-outlined spinner" *ngIf="loading">progress_activity</span>
+      <span *ngIf="!loading">Save</span>
     </button>
   </div>
 </app-modal>

@@ -3,7 +3,7 @@
 [![GitHub ng.yml Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/ng.yml)](https://github.com/HKanwal/ai-todolist/actions/workflows/ng.yml)
 [![GitHub fly.yml Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/fly.yml?logo=github&label=Continuous%20Deployment%20(Server))](https://github.com/HKanwal/ai-todolist/actions/workflows/fly.yml)
 
-A todolist app with an AI twist. Click a button to have the AI recommend new todo items for you. Installable as a PWA on your mobile device.
+A todo-list app with an AI twist. Click a button to have the AI recommend new todo items for you. Installable as a PWA on your mobile device.
 
 ## Stack
 ### Frontend
@@ -12,6 +12,7 @@ A todolist app with an AI twist. Click a button to have the AI recommend new tod
 [![TypeScript Static Badge](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Atypescript)
 [![HTML Static Badge](https://img.shields.io/badge/HTML-E34F26?logo=html5&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Ahtml)
 [![CSS Static Badge](https://img.shields.io/badge/CSS-1572B6?logo=css3&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Acss)
+[![Static Badge](https://img.shields.io/badge/GitHub%20Pages-5d5d5d?logo=github&logoColor=white)](https://github.com/HKanwal/ai-todolist/deployments/activity_log?environment=github-pages)
 
 ## Development server
 

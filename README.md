@@ -35,6 +35,10 @@ Node.js server is automatically deployed to Fly.io [by this workflow](https://gi
 
 API requests are limited to 30 per hour. AI's context is limited to only the last 3 created todos. Each todo sent to the AI is limited to 120 characters.
 
+## Memory
+
+All data is stored locally in the user's browser. No data is stored on the server. Clearing local storage will wipe your todo history.
+
 ## Run Locally
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Remember to run `npm install` to install dependencies.

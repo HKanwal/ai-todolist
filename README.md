@@ -12,7 +12,15 @@ A todo-list app with an AI twist. Click a button to have the AI recommend new to
 [![TypeScript Static Badge](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Atypescript)
 [![HTML Static Badge](https://img.shields.io/badge/HTML-E34F26?logo=html5&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Ahtml)
 [![CSS Static Badge](https://img.shields.io/badge/CSS-1572B6?logo=css3&logoColor=white)](https://github.com/search?q=user%3AHKanwal+language%3Acss)
-[![Static Badge](https://img.shields.io/badge/GitHub%20Pages-5d5d5d?logo=github&logoColor=white)](https://github.com/HKanwal/ai-todolist/deployments/activity_log?environment=github-pages)
+[![GH Pages Static Badge](https://img.shields.io/badge/GitHub%20Pages-5d5d5d?logo=github&logoColor=white)](https://github.com/HKanwal/ai-todolist/deployments/activity_log?environment=github-pages)
+
+### Backend
+
+[![Node.js Static Badge](https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white)](https://nodejs.org/en)
+[![Express Static Badge](https://img.shields.io/badge/Express-000000?logo=Express&logoColor=white)](https://expressjs.com/)
+[![JavaScript Static Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://github.com/search?q=user%3AHKanwal+language%3Ajavascript)
+[![Docker Static Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Fly.io Static Badge](https://img.shields.io/badge/Fly.io-8b5cf6)](https://fly.io/)
 
 ## Development server
 

@@ -1,8 +1,8 @@
 import { Configuration, OpenAIApi } from "openai-edge";
 import express from "express";
 import cors from "cors";
-import { OpenAIStream, StreamingTextResponse } from "ai";
-
+import redis from "redis";
+import expressLimiter from "express-limiter";
 const app = express();
 app.use(express.json());
 const port = process.env["PORT"] || 3001;
@@ -23,6 +23,19 @@ const configuration = new Configuration({
   apiKey: process.env["OPENAI_KEY"],
 });
 const openai = new OpenAIApi(configuration);
+
+const redisClient = redis.createClient();
+const limiter = expressLimiter(app, redisClient);
+
+limiter({
+  path: "/",
+  method: "post",
+  lookup: ["connection.remoteAddress"],
+
+  // 2 requests per hour
+  total: 2,
+  expire: 1000 * 60 * 60,
+});
 
 const baseMessages = [
   {

@@ -11,6 +11,9 @@
   align-items: center;
 
   z-index: 2;
+
+  opacity: 0;
+  animation: fade-in 0.2s ease forwards;
 }
 
 .modal {
@@ -21,6 +24,8 @@
   border: 1px solid rgb(var(--light));
   padding: var(--v-spacing) var(--h-spacing);
   background-color: rgb(var(--dark));
+
+  animation: modal 0.2s ease forwards;
 }
 
 .header {
@@ -52,4 +57,26 @@
 
 .content {
   padding: var(--v-spacing) var(--h-spacing);
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes modal {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translateY(0px);
+  }
 }

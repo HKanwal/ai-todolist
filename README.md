@@ -1,6 +1,7 @@
 # AI Todolist
 
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/ng.yml)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/fly.yml?logo=github&label=Continuous%20Deployment%20(Server))
 
 ## Development server
 

@@ -54,14 +54,26 @@ export class AppComponent {
 
   constructor(private http: HttpClient) {
     const localTodos = localStorage.getItem('todos');
+    const localChoices = localStorage.getItem('choices');
 
     if (localTodos !== null) {
       this.todos = JSON.parse(localTodos);
     }
+
+    if (localChoices !== null) {
+      this.choices = JSON.parse(localChoices);
+      this.dispChoice = 'Choice2';
+      this.lastReqBody = this.getThreeLatest();
+    }
   }
 
-  saveLocally() {
+  saveTodosLocally() {
     localStorage.setItem('todos', JSON.stringify(this.todos));
+    localStorage.removeItem('choices');
+  }
+
+  saveChoicesLocally() {
+    localStorage.setItem('choices', JSON.stringify(this.choices));
   }
 
   typeText(text: string) {
@@ -83,7 +95,7 @@ export class AppComponent {
   }
 
   handleCheck() {
-    this.saveLocally();
+    this.saveTodosLocally();
   }
 
   handleCreateClick() {
@@ -127,7 +139,7 @@ export class AppComponent {
       if (!this.todos[getToday()]) this.todos[getToday()] = [];
       this.todos[getToday()].push({ text: this.modalText.value ?? '', done: 'InInitAnimation' });
     }
-    this.saveLocally();
+    this.saveTodosLocally();
 
     this.modalShown = false;
     this.modalText.setValue('');
@@ -224,6 +236,7 @@ export class AppComponent {
         const streamReader: () => void = () => {
           return reader!.read().then(({ done, value }) => {
             if (done) {
+              this.saveChoicesLocally();
               return;
             }
 
@@ -245,8 +258,10 @@ export class AppComponent {
               }
             });
             for (let delta of deltas) {
-              if (delta === '\n') {
+              if (delta.includes('\n')) {
+                this.choices[choiceBeingRead] += delta.split('\n')[0];
                 choiceBeingRead++;
+                this.choices[choiceBeingRead] += delta.split('\n')[1];
               } else {
                 this.choices[choiceBeingRead] += delta;
               }

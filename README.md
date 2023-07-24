@@ -1,7 +1,7 @@
 # AI Todolist
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/ng.yml)
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/fly.yml?logo=github&label=Continuous%20Deployment%20(Server))
+[![GitHub ng.yml Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/ng.yml)](https://github.com/HKanwal/ai-todolist/actions/workflows/ng.yml)
+[![GitHub fly.yml Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/HKanwal/ai-todolist/fly.yml?logo=github&label=Continuous%20Deployment%20(Server))](https://github.com/HKanwal/ai-todolist/actions/workflows/fly.yml)
 
 ## Development server
 

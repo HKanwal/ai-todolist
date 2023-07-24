@@ -23,8 +23,13 @@ A todo-list app with an AI twist. Click a button to have the AI recommend new to
 [![Fly.io Static Badge](https://img.shields.io/badge/Fly.io-8b5cf6)](https://fly.io/)
 
 ## Continuous Deployment
+### Frontend
 
-Continuous deployment workflows are active for both the frontend and backend. The frontend is automatically built and deployed to GitHub Pages [using this workflow](https://github.com/HKanwal/ai-todolist/blob/main/.github/workflows/ng.yml). The backend is automatically deployed to Fly.io [by this workflow](https://github.com/HKanwal/ai-todolist/blob/main/.github/workflows/fly.yml) if it detects a change from the previous server files (identified by a tag).
+Angular app is automatically built and deployed to GitHub Pages [by this workflow](https://github.com/HKanwal/ai-todolist/blob/main/.github/workflows/ng.yml).
+
+### Backend
+
+Node.js server is automatically deployed to Fly.io [by this workflow](https://github.com/HKanwal/ai-todolist/blob/main/.github/workflows/fly.yml) if a change in server files is detected.
 
 ## Run Locally
 

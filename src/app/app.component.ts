@@ -91,7 +91,7 @@ export class AppComponent {
         clearInterval(this.typeTimer!);
         this.typeTimer = null;
       }
-    }, 80);
+    }, 60);
   }
 
   handleCheck() {

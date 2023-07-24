@@ -78,7 +78,7 @@ app.post(["/"], async (req, res) => {
       model: "gpt-3.5-turbo",
       messages: generateMessages(clippedTodos),
       temperature: 0,
-      max_tokens: 40,
+      max_tokens: 50,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,

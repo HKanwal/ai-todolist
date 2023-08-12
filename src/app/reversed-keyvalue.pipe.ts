@@ -10,6 +10,8 @@ export class ReversedKeyvaluePipe implements PipeTransform {
       return value;
     }
 
+    // BUG: when date changes, this doesn't return new reversed object :/
+
     const reversedEntries = Object.entries<V>(value).reverse();
     return reversedEntries.map((entry) => {
       return {

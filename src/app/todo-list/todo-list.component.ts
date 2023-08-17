@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todos } from '../dated-section/dated-section.component';
+import { KeyValue } from '@angular/common';
 
 export type DatedTodos = {
   [date in string]: Todos;
@@ -55,6 +56,12 @@ export class TodoListComponent {
       }
     }
     return true;
+  }
+
+  orderByDate(a: KeyValue<string, Todos>, b: KeyValue<string, Todos>) {
+    const dateA = new Date(Date.parse(a.key));
+    const dateB = new Date(Date.parse(b.key));
+    return dateA > dateB ? -1 : dateA < dateB ? 1 : 0;
   }
 
   handleCheck() {

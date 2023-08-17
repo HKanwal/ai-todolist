@@ -6,7 +6,7 @@
   [class.show-left]="(initialAnim || initStage === 'PostInit') && done && shown"
 >
   <app-dated-section
-    *ngFor="let todolist of todos | reversedKeyvalue"
+    *ngFor="let todolist of todos | keyvalue : orderByDate"
     [date]="todolist.key"
     [done]="done"
     [todos]="todolist.value"

@@ -1,0 +1,77 @@
+{
+  "configVersion": 1,
+  "timestamp": 1692300716412,
+  "index": "https://hkanwal.github.io/ai-todolist/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://hkanwal.github.io/ai-todolist/favicon.ico",
+        "https://hkanwal.github.io/ai-todolist/index.html",
+        "https://hkanwal.github.io/ai-todolist/main.39f70236a3f270d9.js",
+        "https://hkanwal.github.io/ai-todolist/manifest.webmanifest",
+        "https://hkanwal.github.io/ai-todolist/polyfills.bf65cf7a2fbb9700.js",
+        "https://hkanwal.github.io/ai-todolist/runtime.421135e01fc275bf.js",
+        "https://hkanwal.github.io/ai-todolist/styles.b1c044f749463c04.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://hkanwal.github.io/ai-todolist/assets/icons/icon-144x144.png",
+        "https://hkanwal.github.io/ai-todolist/assets/icons/icon-192x192.png",
+        "https://hkanwal.github.io/ai-todolist/assets/icons/icon-48x48.png",
+        "https://hkanwal.github.io/ai-todolist/assets/icons/icon-512x512.png",
+        "https://hkanwal.github.io/ai-todolist/assets/icons/icon-72x72.png",
+        "https://hkanwal.github.io/ai-todolist/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://hkanwal.github.io/ai-todolist/assets/icons/icon-144x144.png": "d770e0f8520bc58d765ee1430ad4edfe63777060",
+    "https://hkanwal.github.io/ai-todolist/assets/icons/icon-192x192.png": "6ae1eceedc5db76720b7106b422cf27bcc4f8c3d",
+    "https://hkanwal.github.io/ai-todolist/assets/icons/icon-48x48.png": "11159487e990da867496fd87390366c328c7ad7c",
+    "https://hkanwal.github.io/ai-todolist/assets/icons/icon-512x512.png": "12e40276db6e5b134a894c496936f2501884676a",
+    "https://hkanwal.github.io/ai-todolist/assets/icons/icon-72x72.png": "b93bf500bc1317d6da5400a2db24fc1c21912a83",
+    "https://hkanwal.github.io/ai-todolist/assets/icons/icon-96x96.png": "6153d5f362d95574c31695776c68ee342b692c0f",
+    "https://hkanwal.github.io/ai-todolist/favicon.ico": "00157c8d81013a928fb44d25395f37686254bd97",
+    "https://hkanwal.github.io/ai-todolist/index.html": "99de8ab1b9846133274d1529b9d73b55d1579d1d",
+    "https://hkanwal.github.io/ai-todolist/main.39f70236a3f270d9.js": "23da1691357f39ef3bc54e68283aa04d702a39d6",
+    "https://hkanwal.github.io/ai-todolist/manifest.webmanifest": "60628c3c85b602dcd04b3d9524973092bd5e4d1c",
+    "https://hkanwal.github.io/ai-todolist/polyfills.bf65cf7a2fbb9700.js": "38f55f05cae316a6ecb95f703ac81e22792cc80d",
+    "https://hkanwal.github.io/ai-todolist/runtime.421135e01fc275bf.js": "14521cbcafc669f1a015a93bae530b9630a4a15a",
+    "https://hkanwal.github.io/ai-todolist/styles.b1c044f749463c04.css": "26d6d1eb89ecffaf68616b276572e229bc51ff1d"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
